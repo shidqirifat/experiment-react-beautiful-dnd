@@ -46,12 +46,12 @@ const TASKS: Array<Task> = [
       {
         id: "4",
         name: "Category 4",
-        color: COLORS.lightblue,
+        color: COLORS.blue,
       },
       {
         id: "5",
         name: "Category 5",
-        color: COLORS.lightgreen,
+        color: COLORS.green,
       },
     ],
     todos: [
@@ -85,7 +85,7 @@ const TASKS: Array<Task> = [
       {
         id: "3",
         name: "Category 3",
-        color: COLORS.lightgreen,
+        color: COLORS.green,
       },
     ],
     description:

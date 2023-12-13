@@ -1,11 +1,35 @@
-import React, { useState } from "react";
-import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import React from "react";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+} from "react-beautiful-dnd";
 import { TASKS } from "../../datas/task";
 import { Task } from "../../types/reorder";
 import { reorder } from "../../utils/reorder";
-import { TaskItem } from ".";
+import { useLocalStorage } from "@mantine/hooks";
+import { TaskCard } from ".";
 
 type ListTaskProps = { tasks: Array<Task> };
+type TaskItemProps = { task: Task; index: number };
+
+function TaskItem({ task, index }: TaskItemProps) {
+  return (
+    <Draggable draggableId={task.id} index={index}>
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className="rounded-lg bg-white px-4 py-2 select-none !cursor-pointer"
+        >
+          <TaskCard task={task} />
+        </div>
+      )}
+    </Draggable>
+  );
+}
 
 const ListTask = React.memo(function QuoteList({ tasks }: ListTaskProps) {
   return tasks.map((task, index) => (
@@ -13,8 +37,11 @@ const ListTask = React.memo(function QuoteList({ tasks }: ListTaskProps) {
   ));
 });
 
-export const Reorder = () => {
-  const [tasks, setTasks] = useState(TASKS);
+export const ListCardTask = () => {
+  const [tasks, setTasks] = useLocalStorage({
+    key: "data",
+    defaultValue: TASKS,
+  });
 
   const onDragEnd = ({ source, destination }: DropResult) => {
     if (!destination) return;

@@ -1,9 +1,9 @@
-import { Reorder } from "./components/reorder";
+import { ListCardTask } from "./components/task";
 
 function App() {
   return (
     <div className="m-4">
-      <Reorder />
+      <ListCardTask />
     </div>
   );
 }
