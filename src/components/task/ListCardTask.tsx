@@ -6,7 +6,7 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { TASKS } from "../../datas/task";
-import { Task } from "../../types/reorder";
+import { Task } from "../../types/task";
 import { reorder } from "../../utils/reorder";
 import { useLocalStorage } from "@mantine/hooks";
 import { TaskCard } from ".";

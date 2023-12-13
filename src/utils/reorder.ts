@@ -1,4 +1,4 @@
-import { Task } from "../types/reorder";
+import { Task } from "../types/task";
 
 const reorder = (
   list: Array<Task>,

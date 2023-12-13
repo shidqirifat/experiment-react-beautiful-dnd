@@ -1,6 +1,8 @@
-import { DueDate } from "../../types/reorder";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DueDate } from "../../types/task";
 import { formatDate, getDayToNow } from "../../utils/time";
 import cx from "clsx";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 type DateProps = { dueDate: DueDate | undefined };
 
@@ -13,14 +15,18 @@ export const Date = ({ dueDate }: DateProps) => {
 
   return (
     <button
-      className={cx("py-1 px-2 rounded w-max mt-1", {
-        "bg-yellow-400": !is_done && !isPast && dayToNow < 1,
-        "bg-slate-200": !is_done && !isPast,
-        "bg-red-400": !is_done && isPast,
-        "bg-green-500": is_done,
-      })}
+      className={cx(
+        "py-1 px-2 rounded w-max mt-1 flex items-center gap-[6px]",
+        {
+          "bg-yellow-400": !is_done && !isPast && dayToNow < 1,
+          "bg-slate-200": !is_done && !isPast,
+          "bg-red-400": !is_done && isPast,
+          "bg-green-500": is_done,
+        }
+      )}
     >
-      <h4 className="text-xs">📅 {formatDate(date, "MMM D")}</h4>
+      <FontAwesomeIcon icon={faClock} size="sm" />
+      <h4 className="text-xs">{formatDate(date, "MMM D")}</h4>
     </button>
   );
 };

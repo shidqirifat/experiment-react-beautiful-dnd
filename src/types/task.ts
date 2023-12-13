@@ -1,4 +1,4 @@
-type Category = {
+type Label = {
   id: string;
   name: string;
   color: string;
@@ -6,7 +6,9 @@ type Category = {
 
 type Link = {
   id: string;
+  name: string;
   url: string;
+  updated_at: string;
 };
 
 type DueDate = {
@@ -24,10 +26,10 @@ type Task = {
   id: string;
   title: string;
   description?: string;
-  categories?: Array<Category>;
+  labels?: Array<Label>;
   todos?: Array<Todo>;
   links?: Array<Link>;
   due_date?: DueDate;
 };
 
-export type { Category, Link, DueDate, Todo, Task };
+export type { Label, Link, DueDate, Todo, Task };
