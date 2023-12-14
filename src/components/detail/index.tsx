@@ -1,4 +1,4 @@
-export * from "./Modal";
+export * from "./TaskModal";
 export * from "./Section";
 export * from "./HeaderSection";
 export * from "./DescriptionSection";

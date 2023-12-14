@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DropResult,
-} from "react-beautiful-dnd";
-import { TASKS } from "../../datas/task";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Task } from "../../types/task";
-import { reorder } from "../../utils/reorder";
-import { useLocalStorage } from "@mantine/hooks";
 import { TaskCard } from ".";
+import useTasks from "../../hooks/useTasks";
 
 type ListTaskProps = { tasks: Array<Task> };
 type TaskItemProps = { task: Task; index: number };
@@ -38,19 +31,7 @@ const ListTask = React.memo(function QuoteList({ tasks }: ListTaskProps) {
 });
 
 export const ListCardTask = () => {
-  const [tasks, setTasks] = useLocalStorage({
-    key: "data",
-    defaultValue: TASKS,
-  });
-
-  const onDragEnd = ({ source, destination }: DropResult) => {
-    if (!destination) return;
-    if (destination.index === source.index) return;
-
-    const newTasks = reorder(tasks, source.index, destination.index);
-
-    setTasks(newTasks);
-  };
+  const { tasks, onReorder } = useTasks();
 
   return (
     <div className="bg-gray-200 px-2 py-4 rounded-lg">
@@ -60,7 +41,7 @@ export const ListCardTask = () => {
           ...
         </button>
       </div>
-      <DragDropContext onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={onReorder}>
         <Droppable droppableId="list">
           {(provided) => (
             <div
