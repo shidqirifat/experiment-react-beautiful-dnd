@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DueDate } from "../../types/task";
-import { formatDate, getDayToNow } from "../../utils/time";
+import { DueDate } from "@/types/task";
+import { formatDate, getDayToNow } from "@/utils/time";
 import cx from "clsx";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 

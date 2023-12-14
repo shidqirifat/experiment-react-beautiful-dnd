@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Labels, CheckTodos, Date, Link } from ".";
-import { Task } from "../../types/task";
+import { Task } from "@/types/task";
 import { Link as RouterLink } from "react-router-dom";
 import { faIndent } from "@fortawesome/free-solid-svg-icons";
 

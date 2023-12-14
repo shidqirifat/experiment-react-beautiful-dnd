@@ -1,8 +1,8 @@
 import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { Task } from "../../types/task";
+import { Task } from "@/types/task";
 import { TaskCard } from ".";
-import useTasks from "../../hooks/useTasks";
+import useTasks from "@/hooks/useTasks";
 
 type ListTaskProps = { tasks: Array<Task> };
 type TaskItemProps = { task: Task; index: number };

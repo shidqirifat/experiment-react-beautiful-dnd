@@ -1,4 +1,4 @@
-import { Label } from "../../types/task";
+import { Label } from "@/types/task";
 import cx from "clsx";
 
 type LabelsProps = { labels: Array<Label> | undefined };

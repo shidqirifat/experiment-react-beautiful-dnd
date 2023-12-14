@@ -1,7 +1,9 @@
 import { useLocalStorage } from "@mantine/hooks";
-import { TASKS } from "../datas/task";
-import { reorder } from "../utils/reorder";
+import { TASKS } from "@/datas/task";
+import { reorder } from "@/utils/reorder";
 import { DropResult } from "react-beautiful-dnd";
+import { Task } from "@/types/task";
+import { useCallback } from "react";
 
 export default function useTasks() {
   const [tasks, setTasks] = useLocalStorage({
@@ -9,14 +11,29 @@ export default function useTasks() {
     defaultValue: TASKS,
   });
 
-  const handleReorder = ({ source, destination }: DropResult) => {
-    if (!destination) return;
-    if (destination.index === source.index) return;
+  const handleReorder = useCallback(
+    ({ source, destination }: DropResult) => {
+      if (!destination) return;
+      if (destination.index === source.index) return;
 
-    const newTasks = reorder(tasks, source.index, destination.index);
+      const newTasks = reorder(tasks, source.index, destination.index);
 
-    setTasks(newTasks);
-  };
+      setTasks(newTasks);
+    },
+    [tasks]
+  );
 
-  return { tasks, onReorder: handleReorder };
+  const updateTask = useCallback(
+    (id: string, newTask: Task) => {
+      const index = tasks.findIndex((task) => task.id === id);
+      if (index < 0) return;
+
+      const cloneTasks = [...tasks];
+      cloneTasks.splice(index, 1, newTask);
+      setTasks(cloneTasks);
+    },
+    [tasks]
+  );
+
+  return { tasks, onReorder: handleReorder, updateTask };
 }

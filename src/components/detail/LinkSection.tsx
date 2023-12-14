@@ -4,8 +4,8 @@ import {
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import { ContentSection, Section, TitleSection } from ".";
-import { Link } from "../../types/task";
-import { formatDate } from "../../utils/time";
+import { Link } from "@/types/task";
+import { formatDate } from "@/utils/time";
 
 type LinkSectionProps = { links: Array<Link> | undefined };
 type LinkItemProps = { link: Link };

@@ -1,4 +1,4 @@
-import { Todo } from "../../types/task";
+import { Todo } from "@/types/task";
 
 type CheckTodosProps = { todos: Array<Todo> | undefined };
 
