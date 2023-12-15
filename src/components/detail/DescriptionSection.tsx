@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 
 type DescriptionSectionProps = {
   children: string;
-  onSave: (text: string) => void;
+  onSave: (value: string) => void;
 };
 
 type EditorProps = {
@@ -40,7 +40,8 @@ const Editor = (props: EditorProps) => {
     <div>
       <textarea
         value={props.children}
-        onChange={(e) => props.onChange(e.currentTarget.value)}
+        autoFocus
+        onChange={(e) => props.onChange(e.target.value)}
         className="w-full h-52 p-4 border border-slate-200 rounded-sm focus:outline-blue-600"
       />
       <div className="flex gap-2">

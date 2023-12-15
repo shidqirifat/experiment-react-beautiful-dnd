@@ -16,10 +16,17 @@ export default function useTask() {
     navigate("/");
   }, [taskId, task]);
 
-  const handleSave = useCallback((text: string) => {
+  const handleSaveTitle = useCallback((value: string) => {
     setTask((prev) => {
       if (!prev) return null;
-      return { ...prev, description: text };
+      return { ...prev, title: value };
+    });
+  }, []);
+
+  const handleSaveDescription = useCallback((value: string) => {
+    setTask((prev) => {
+      if (!prev) return null;
+      return { ...prev, description: value };
     });
   }, []);
 
@@ -47,6 +54,7 @@ export default function useTask() {
     task,
     onClose: handleClose,
     onToggleComplete: handleToggleCompleteDate,
-    onSave: handleSave,
+    onSaveTitle: handleSaveTitle,
+    onSaveDescription: handleSaveDescription,
   };
 }

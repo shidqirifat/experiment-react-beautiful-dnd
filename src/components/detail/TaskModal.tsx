@@ -29,10 +29,10 @@ type ButtonActionProps = {
 const Modal = ({ children, onClose }: ModalProps) => {
   return (
     <Shadow onClick={onClose}>
-      <div className="absolute z-10 top-12 left-[50%] translate-x-[-50%] w-[90vw] bg-slate-50 rounded-lg p-4 pr-6">
+      <div className="absolute z-10 top-12 left-[50%] translate-x-[-50%] w-[90vw] bg-slate-50 rounded-lg p-4 pt-5">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 transition hover:bg-slate-200 py-1 px-2 rounded"
+          className="absolute top-5 right-4 transition hover:bg-slate-200 py-1 px-2 rounded"
         >
           <FontAwesomeIcon icon={faXmark} color="gray" size="lg" />
         </button>
@@ -55,12 +55,13 @@ const Layout = ({ children }: LayoutProps) => {
 };
 
 export function TaskModal() {
-  const { task, onClose, onToggleComplete, onSave } = useTask();
+  const { task, onClose, onToggleComplete, onSaveTitle, onSaveDescription } =
+    useTask();
   if (!task) return null;
 
   return (
     <Modal onClose={onClose}>
-      <HeaderSection title={task.title} />
+      <HeaderSection title={task.title} onSave={onSaveTitle} />
       <Layout>
         <div>
           <SubdetailSection
@@ -68,7 +69,7 @@ export function TaskModal() {
             dueDate={task.due_date}
             onToggleComplete={onToggleComplete}
           />
-          <DescriptionSection onSave={onSave}>
+          <DescriptionSection onSave={onSaveDescription}>
             {task.description as string}
           </DescriptionSection>
           <LinkSection links={task.links} />

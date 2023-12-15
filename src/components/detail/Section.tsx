@@ -13,7 +13,6 @@ type TitleSectionProps = {
     label: string;
     onClick?: () => void;
   };
-  headerSection?: boolean;
 };
 type ContentSectionProps = { className?: string; children: ReactNode };
 
@@ -26,20 +25,12 @@ export function TitleSection({
   sizeIcon = "1x",
   label,
   action,
-  headerSection,
 }: TitleSectionProps) {
   return (
     <div className="flex justify-between items-center">
       <div className="flex gap-3 items-center">
         <FontAwesomeIcon icon={icon} size={sizeIcon} />
-        <h1
-          className={cx("text-base font-semibold", {
-            "text-lg": headerSection,
-            "text-base": !headerSection,
-          })}
-        >
-          {label}
-        </h1>
+        <h1 className="text-base font-semibold">{label}</h1>
       </div>
       {action && <Button onClick={action.onClick}>{action.label}</Button>}
     </div>
