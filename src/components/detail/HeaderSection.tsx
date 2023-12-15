@@ -1,5 +1,5 @@
 import { faHeading } from "@fortawesome/free-solid-svg-icons";
-import { ContentSection, Section } from ".";
+import { ContentSection, Section, Subtitle } from ".";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Input } from "../ui/input";
@@ -11,9 +11,9 @@ type TitleProps = { children: string; onSave: (value: string) => void };
 
 const InList = ({ children }: InListProps) => {
   return (
-    <h4 className="text-slate-600 text-sm">
+    <Subtitle>
       in list <span className="font-medium">{children}</span>
-    </h4>
+    </Subtitle>
   );
 };
 

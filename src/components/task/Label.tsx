@@ -9,7 +9,7 @@ export const LabelItem = ({ label, cardLabel }: LabelProps) => {
     <button
       key={label.id}
       className={cx(
-        "px-3 inline-flex w-max mr-2 hover:brightness-110 transition",
+        "px-3 inline-flex w-max mr-1 hover:brightness-110 transition",
         {
           "mt-2 rounded-md py-1 text-xs": cardLabel,
           "mt-1 rounded py-2 text-sm": !cardLabel,

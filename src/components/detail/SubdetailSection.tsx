@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ContentSection, Section } from ".";
+import { ContentSection, Section, Subtitle } from ".";
 import { DueDate, Label } from "@/types/task";
 import { formatDate } from "@/utils/time";
 import { LabelItem } from "../task";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Checkbox } from "../ui/checkbox";
+import { Button } from "../ui/button";
 
 type SubdetailSectionProps = {
   labels: Array<Label> | undefined;
@@ -21,10 +22,15 @@ type DateProps = {
 const LabelsSection = ({ labels }: LabelsSectionProps) => {
   return (
     <div>
-      <h4 className="text-sm text-slate-600">Labels</h4>
-      {labels.map((label) => (
-        <LabelItem key={label.id} label={label} />
-      ))}
+      <Subtitle>Labels</Subtitle>
+      <div>
+        {labels.map((label) => (
+          <LabelItem key={label.id} label={label} />
+        ))}
+        <Button className="h-9 mt-1">
+          <FontAwesomeIcon icon={faPlus} />
+        </Button>
+      </div>
     </div>
   );
 };
@@ -40,7 +46,7 @@ const DateCompleted = () => {
 const Date = ({ date, completed, onToggleComplete }: DateProps) => {
   return (
     <div>
-      <h4 className="text-sm text-slate-600">Due date</h4>
+      <Subtitle>Due date</Subtitle>
       <div className="flex items-center gap-2 mt-1">
         <Checkbox checked={completed} onCheckedChange={onToggleComplete} />
         <button className="py-2 px-3 bg-slate-200 hover:bg-slate-300 transition rounded-sm flex gap-2 items-center">
@@ -63,7 +69,7 @@ export function SubdetailSection({
   return (
     <Section>
       <ContentSection>
-        <div className="flex gap-3">
+        <div className="flex gap-5">
           {labels && <LabelsSection labels={labels} />}
           {dueDate && (
             <Date

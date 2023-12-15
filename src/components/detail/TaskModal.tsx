@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBoxesPacking,
   faLink,
   faTableList,
   faTags,
+  faTrash,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -10,6 +12,7 @@ import {
   LinkSection,
   HeaderSection,
   SubdetailSection,
+  Subtitle,
 } from ".";
 import { Shadow } from "../ui/modal";
 import useTask from "@/hooks/useTask";
@@ -74,13 +77,26 @@ export function TaskModal() {
           </DescriptionSection>
           <LinkSection links={task.links} />
         </div>
-        <div className="space-y-2">
-          <ButtonAction icon={faTags}>Labels</ButtonAction>
-          <ButtonAction icon={faTableList}>Todos</ButtonAction>
-          <ButtonAction icon={faClock}>Date</ButtonAction>
-          <ButtonAction icon={faLink} sizeIcon="sm">
-            Links
-          </ButtonAction>
+        <div>
+          <div>
+            <Subtitle>Add to card</Subtitle>
+            <div className="space-y-2 mt-1">
+              <ButtonAction icon={faTags}>Labels</ButtonAction>
+              <ButtonAction icon={faTableList}>Todos</ButtonAction>
+              <ButtonAction icon={faClock}>Date</ButtonAction>
+              <ButtonAction icon={faLink} sizeIcon="sm">
+                Links
+              </ButtonAction>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <Subtitle>Actions</Subtitle>
+            <div className="space-y-2 mt-1">
+              <ButtonAction icon={faBoxesPacking}>Archive</ButtonAction>
+              <ButtonAction icon={faTrash}>Delete</ButtonAction>
+            </div>
+          </div>
         </div>
       </Layout>
     </Modal>

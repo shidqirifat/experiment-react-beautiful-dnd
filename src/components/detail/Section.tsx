@@ -15,6 +15,7 @@ type TitleSectionProps = {
   };
 };
 type ContentSectionProps = { className?: string; children: ReactNode };
+type SubtitleProps = SectionProps;
 
 export function Section({ children }: SectionProps) {
   return <div className="pb-8">{children}</div>;
@@ -35,6 +36,10 @@ export function TitleSection({
       {action && <Button onClick={action.onClick}>{action.label}</Button>}
     </div>
   );
+}
+
+export function Subtitle({ children }: SubtitleProps) {
+  return <h4 className="text-sm text-slate-600">{children}</h4>;
 }
 
 export function ContentSection({ className, children }: ContentSectionProps) {

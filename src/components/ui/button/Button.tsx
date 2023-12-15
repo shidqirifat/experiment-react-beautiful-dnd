@@ -1,11 +1,11 @@
-import { MouseEvent } from "react";
+import { MouseEvent, ReactNode } from "react";
 import cx from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp, SizeProp } from "@fortawesome/fontawesome-svg-core";
 
 type ButtonProps = {
   onClick?: (e: MouseEvent) => void;
-  children: string;
+  children: ReactNode;
   className?: string;
   leftIcon?: IconProp;
   sizeIcon?: SizeProp;
@@ -23,15 +23,16 @@ export function Button({ variant = "default", ...props }: ButtonProps) {
           "hover:bg-slate-300": variant === "subtle",
           "bg-blue-600 hover:bg-blue-700 text-white": variant === "primary",
         },
+        {
+          "grid grid-cols-[20px_1fr] gap-2": props.leftIcon,
+        },
         props.className
       )}
     >
       {props.leftIcon && (
-        <FontAwesomeIcon
-          icon={props.leftIcon}
-          size={props.sizeIcon}
-          className="mr-3"
-        />
+        <div className="h-full grid place-content-center">
+          <FontAwesomeIcon icon={props.leftIcon} size={props.sizeIcon} />
+        </div>
       )}
       {props.children}
     </button>
