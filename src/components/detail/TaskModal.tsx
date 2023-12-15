@@ -55,7 +55,7 @@ const Layout = ({ children }: LayoutProps) => {
 };
 
 export function TaskModal() {
-  const { task, onClose, onToggleComplete } = useTask();
+  const { task, onClose, onToggleComplete, onSave } = useTask();
   if (!task) return null;
 
   return (
@@ -68,7 +68,9 @@ export function TaskModal() {
             dueDate={task.due_date}
             onToggleComplete={onToggleComplete}
           />
-          <DescriptionSection>{task.description as string}</DescriptionSection>
+          <DescriptionSection onSave={onSave}>
+            {task.description as string}
+          </DescriptionSection>
           <LinkSection links={task.links} />
         </div>
         <div className="space-y-2">

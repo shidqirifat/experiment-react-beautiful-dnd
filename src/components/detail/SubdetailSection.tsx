@@ -41,9 +41,9 @@ const Date = ({ date, completed, onToggleComplete }: DateProps) => {
   return (
     <div>
       <h4 className="text-sm text-slate-600">Due date</h4>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 mt-1">
         <Checkbox checked={completed} onCheckedChange={onToggleComplete} />
-        <button className="py-2 px-3 bg-slate-200 hover:bg-slate-300 transition rounded-sm mt-1 flex gap-2 items-center">
+        <button className="py-2 px-3 bg-slate-200 hover:bg-slate-300 transition rounded-sm flex gap-2 items-center">
           <h4 className="text-sm font-medium">
             {formatDate(date, "MMM D")} at {formatDate(date, "h:mm A")}
           </h4>

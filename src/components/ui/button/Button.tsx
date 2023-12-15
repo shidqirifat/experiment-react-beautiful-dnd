@@ -9,14 +9,20 @@ type ButtonProps = {
   className?: string;
   leftIcon?: IconProp;
   sizeIcon?: SizeProp;
+  variant?: "primary" | "subtle" | "default";
 };
 
-export function Button(props: ButtonProps) {
+export function Button({ variant = "default", ...props }: ButtonProps) {
   return (
     <button
       onClick={props.onClick}
       className={cx(
-        "bg-slate-200 hover:bg-slate-300 transition py-[6px] px-3 text-sm font-semibold rounded-sm",
+        "transition py-[6px] px-3 text-sm font-semibold rounded-sm",
+        {
+          "bg-slate-200 hover:bg-slate-300": variant === "default",
+          "hover:bg-slate-300": variant === "subtle",
+          "bg-blue-600 hover:bg-blue-700 text-white": variant === "primary",
+        },
         props.className
       )}
     >

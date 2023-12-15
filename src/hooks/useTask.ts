@@ -16,6 +16,13 @@ export default function useTask() {
     navigate("/");
   }, [taskId, task]);
 
+  const handleSave = useCallback((text: string) => {
+    setTask((prev) => {
+      if (!prev) return null;
+      return { ...prev, description: text };
+    });
+  }, []);
+
   const handleToggleCompleteDate = useCallback((value: boolean) => {
     setTask((prev) => {
       if (!prev) return null;
@@ -40,5 +47,6 @@ export default function useTask() {
     task,
     onClose: handleClose,
     onToggleComplete: handleToggleCompleteDate,
+    onSave: handleSave,
   };
 }

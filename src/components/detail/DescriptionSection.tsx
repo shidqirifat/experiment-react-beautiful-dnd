@@ -1,7 +1,21 @@
 import { faIndent } from "@fortawesome/free-solid-svg-icons";
 import { ContentSection, Section, TitleSection } from ".";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
-type DescriptionSectionProps = { children: string };
+type DescriptionSectionProps = {
+  children: string;
+  onSave: (text: string) => void;
+};
+
+type EditorProps = {
+  children: string;
+  isEdit: boolean;
+  toggleEdit: () => void;
+  onSave: () => void;
+  onCancel: () => void;
+  onChange: (value: string) => void;
+};
 
 const Placeholder = () => {
   return (
@@ -13,16 +27,74 @@ const Placeholder = () => {
   );
 };
 
-export function DescriptionSection({ children }: DescriptionSectionProps) {
+const Editor = (props: EditorProps) => {
+  if (!props.isEdit) {
+    return (
+      <div onClick={props.toggleEdit} className="cursor-pointer text-sm">
+        {props.children}
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <textarea
+        value={props.children}
+        onChange={(e) => props.onChange(e.currentTarget.value)}
+        className="w-full h-52 p-4 border border-slate-200 rounded-sm focus:outline-blue-600"
+      />
+      <div className="flex gap-2">
+        <Button variant="primary" onClick={props.onSave}>
+          Save
+        </Button>
+        <Button variant="subtle" onClick={props.onCancel}>
+          Cancel
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export function DescriptionSection({
+  children,
+  onSave,
+}: DescriptionSectionProps) {
+  const [text, setText] = useState(children);
+  const [isEdit, setEdit] = useState(false);
+
+  const handleSave = () => {
+    onSave(text);
+    toggleEdit();
+  };
+
+  const toggleEdit = () => setEdit(!isEdit);
+
+  const handleCancel = () => {
+    toggleEdit();
+    setText(children);
+  };
+
   return (
     <Section>
       <TitleSection
         icon={faIndent}
         label="Description"
-        action={children ? { label: "Edit" } : undefined}
+        action={text ? { label: "Edit", onClick: toggleEdit } : undefined}
       />
       <ContentSection className="mt-3">
-        {children || <Placeholder />}
+        {text ? (
+          <Editor
+            isEdit={isEdit}
+            onChange={setText}
+            onSave={handleSave}
+            onCancel={handleCancel}
+            toggleEdit={toggleEdit}
+          >
+            {text}
+          </Editor>
+        ) : (
+          <Placeholder />
+        )}
       </ContentSection>
     </Section>
   );
