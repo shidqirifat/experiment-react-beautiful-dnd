@@ -1,4 +1,6 @@
+import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
+import { Link } from "./task";
 
 const linkSchema = z.object({
   url: z.string().url("Enter a valid URL"),
@@ -7,5 +9,21 @@ const linkSchema = z.object({
 
 type LinkForm = z.infer<typeof linkSchema>;
 
+type TypeForm = "add" | "edit";
+
+type LinkModalProps = {
+  initialForm?: Link;
+  type: TypeForm;
+  onInsert?: (form: LinkForm) => void;
+  onUpdate?: (id: string, form: LinkForm) => void;
+};
+
+type FormLinkProps = {
+  type: TypeForm;
+  form: UseFormReturn<LinkForm>;
+  onSubmit: (form: LinkForm) => void;
+  onClose: () => void;
+};
+
 export { linkSchema };
-export type { LinkForm };
+export type { LinkForm, TypeForm, LinkModalProps, FormLinkProps };

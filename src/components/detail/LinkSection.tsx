@@ -6,16 +6,25 @@ import {
 import { ContentSection, Section, TitleSection } from ".";
 import { Link } from "@/types/task";
 import { formatDate } from "@/utils/time";
+import { LinkModal } from "./link";
+import { LinkForm } from "@/types/link";
 
-type LinkSectionProps = { links: Array<Link> | undefined };
-type LinkItemProps = { link: Link };
+type LinkSectionProps = {
+  links: Array<Link> | undefined;
+  onEditLink: (id: string, form: LinkForm) => void;
+};
+type LinkItemProps = {
+  link: Link;
+  onEditLink: (id: string, form: LinkForm) => void;
+};
 
 const Dot = () => <>&#8226;</>;
 
-const LinkItem = ({ link }: LinkItemProps) => {
+const LinkItem = ({ link, onEditLink }: LinkItemProps) => {
   return (
     <a
       href={link.url}
+      rel="noopener noreferrer"
       target="_blank"
       className="flex gap-3 hover:bg-slate-200 transition rounded-sm"
     >
@@ -35,14 +44,14 @@ const LinkItem = ({ link }: LinkItemProps) => {
           <Dot />
           <button className="underline underline-offset-1">Remove</button>
           <Dot />
-          <button className="underline underline-offset-1">Edit</button>
+          <LinkModal type="edit" initialForm={link} onUpdate={onEditLink} />
         </div>
       </div>
     </a>
   );
 };
 
-export function LinkSection({ links }: LinkSectionProps) {
+export function LinkSection({ links, onEditLink }: LinkSectionProps) {
   if (!links) return null;
 
   return (
@@ -55,7 +64,7 @@ export function LinkSection({ links }: LinkSectionProps) {
       />
       <ContentSection className="mt-3 space-y-2">
         {links.map((link) => (
-          <LinkItem key={link.id} link={link} />
+          <LinkItem key={link.id} link={link} onEditLink={onEditLink} />
         ))}
       </ContentSection>
     </Section>

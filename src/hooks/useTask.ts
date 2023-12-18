@@ -42,7 +42,7 @@ export default function useTask() {
     });
   }, []);
 
-  const handleAddLink = (form: LinkForm) => {
+  const handleAddLink = useCallback((form: LinkForm) => {
     const link: Link = {
       id: (+new Date()).toString(),
       updated_at: new Date().toISOString(),
@@ -53,7 +53,28 @@ export default function useTask() {
       if (!prev) return null;
       return { ...prev, links: [...(prev.links as Array<Link>), link] };
     });
-  };
+  }, []);
+
+  const handleEditLink = useCallback((id: string, form: LinkForm) => {
+    setTask((prev) => {
+      if (!prev) return null;
+
+      const cloneLinks = [...(prev.links || [])];
+      const index = cloneLinks.findIndex((link) => link.id === id);
+
+      if (index === -1) return { ...prev, links: [] };
+      else {
+        const link: Link = {
+          id,
+          updated_at: new Date().toISOString(),
+          ...form,
+        };
+        cloneLinks.splice(index, 1, link);
+
+        return { ...prev, links: cloneLinks };
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const currentTask = tasks.find((task) => task.id === taskId);
@@ -71,5 +92,6 @@ export default function useTask() {
     onSaveTitle: handleSaveTitle,
     onSaveDescription: handleSaveDescription,
     onAddLink: handleAddLink,
+    onEditLink: handleEditLink,
   };
 }

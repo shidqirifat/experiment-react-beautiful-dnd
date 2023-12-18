@@ -51,6 +51,7 @@ export function TaskModal() {
     onSaveTitle,
     onSaveDescription,
     onAddLink,
+    onEditLink,
   } = useTask();
 
   if (!task) return null;
@@ -69,7 +70,7 @@ export function TaskModal() {
             <DescriptionSection onSave={onSaveDescription}>
               {task.description as string}
             </DescriptionSection>
-            <LinkSection links={task.links} />
+            <LinkSection links={task.links} onEditLink={onEditLink} />
           </div>
           <div>
             <div>
@@ -78,7 +79,7 @@ export function TaskModal() {
                 <ButtonAction icon={faTags}>Labels</ButtonAction>
                 <ButtonAction icon={faTableList}>Todos</ButtonAction>
                 <ButtonAction icon={faClock}>Date</ButtonAction>
-                <LinkModal onInsert={onAddLink} />
+                <LinkModal type="add" onInsert={onAddLink} />
               </div>
             </div>
 
