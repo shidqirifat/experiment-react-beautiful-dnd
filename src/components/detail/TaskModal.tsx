@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBoxesPacking,
-  faLink,
   faTableList,
   faTags,
   faTrash,
@@ -17,17 +16,12 @@ import {
 import { Shadow } from "../ui/modal";
 import useTask from "@/hooks/useTask";
 import { ReactNode } from "react";
-import { Button } from "../ui/button";
-import { IconProp, SizeProp } from "@fortawesome/fontawesome-svg-core";
 import { faClock } from "@fortawesome/free-regular-svg-icons/faClock";
+import { LinkModal } from "./link";
+import { ButtonAction } from "../ui/button";
 
 type LayoutProps = { children: ReactNode };
 type ModalProps = { children: ReactNode; onClose: () => void };
-type ButtonActionProps = {
-  children: string;
-  icon: IconProp;
-  sizeIcon?: SizeProp;
-};
 
 const Modal = ({ children, onClose }: ModalProps) => {
   return (
@@ -45,60 +39,59 @@ const Modal = ({ children, onClose }: ModalProps) => {
   );
 };
 
-const ButtonAction = ({ children, icon, sizeIcon }: ButtonActionProps) => {
-  return (
-    <Button leftIcon={icon} sizeIcon={sizeIcon} className="w-full text-left">
-      {children}
-    </Button>
-  );
-};
-
 const Layout = ({ children }: LayoutProps) => {
   return <div className="grid grid-cols-[1fr_170px] gap-4">{children}</div>;
 };
 
 export function TaskModal() {
-  const { task, onClose, onToggleComplete, onSaveTitle, onSaveDescription } =
-    useTask();
+  const {
+    task,
+    onClose,
+    onToggleComplete,
+    onSaveTitle,
+    onSaveDescription,
+    onAddLink,
+  } = useTask();
+
   if (!task) return null;
 
   return (
-    <Modal onClose={onClose}>
-      <HeaderSection title={task.title} onSave={onSaveTitle} />
-      <Layout>
-        <div>
-          <SubdetailSection
-            labels={task.labels}
-            dueDate={task.due_date}
-            onToggleComplete={onToggleComplete}
-          />
-          <DescriptionSection onSave={onSaveDescription}>
-            {task.description as string}
-          </DescriptionSection>
-          <LinkSection links={task.links} />
-        </div>
-        <div>
+    <>
+      <Modal onClose={onClose}>
+        <HeaderSection title={task.title} onSave={onSaveTitle} />
+        <Layout>
           <div>
-            <Subtitle>Add to card</Subtitle>
-            <div className="space-y-2 mt-1">
-              <ButtonAction icon={faTags}>Labels</ButtonAction>
-              <ButtonAction icon={faTableList}>Todos</ButtonAction>
-              <ButtonAction icon={faClock}>Date</ButtonAction>
-              <ButtonAction icon={faLink} sizeIcon="sm">
-                Links
-              </ButtonAction>
-            </div>
+            <SubdetailSection
+              labels={task.labels}
+              dueDate={task.due_date}
+              onToggleComplete={onToggleComplete}
+            />
+            <DescriptionSection onSave={onSaveDescription}>
+              {task.description as string}
+            </DescriptionSection>
+            <LinkSection links={task.links} />
           </div>
+          <div>
+            <div>
+              <Subtitle>Add to card</Subtitle>
+              <div className="space-y-2 mt-1">
+                <ButtonAction icon={faTags}>Labels</ButtonAction>
+                <ButtonAction icon={faTableList}>Todos</ButtonAction>
+                <ButtonAction icon={faClock}>Date</ButtonAction>
+                <LinkModal onInsert={onAddLink} />
+              </div>
+            </div>
 
-          <div className="mt-8">
-            <Subtitle>Actions</Subtitle>
-            <div className="space-y-2 mt-1">
-              <ButtonAction icon={faBoxesPacking}>Archive</ButtonAction>
-              <ButtonAction icon={faTrash}>Delete</ButtonAction>
+            <div className="mt-8">
+              <Subtitle>Actions</Subtitle>
+              <div className="space-y-2 mt-1">
+                <ButtonAction icon={faBoxesPacking}>Archive</ButtonAction>
+                <ButtonAction icon={faTrash}>Delete</ButtonAction>
+              </div>
             </div>
           </div>
-        </div>
-      </Layout>
-    </Modal>
+        </Layout>
+      </Modal>
+    </>
   );
 }

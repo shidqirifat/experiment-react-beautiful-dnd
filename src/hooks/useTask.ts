@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useTasks from "./useTasks";
 import { useCallback, useEffect, useState } from "react";
-import { DueDate, Task } from "@/types/task";
+import { DueDate, Link, Task } from "@/types/task";
+import { LinkForm } from "@/types/link";
 
 type TParams = { taskId?: string };
 
@@ -41,6 +42,19 @@ export default function useTask() {
     });
   }, []);
 
+  const handleAddLink = (form: LinkForm) => {
+    const link: Link = {
+      id: (+new Date()).toString(),
+      updated_at: new Date().toISOString(),
+      ...form,
+    };
+
+    setTask((prev) => {
+      if (!prev) return null;
+      return { ...prev, links: [...(prev.links as Array<Link>), link] };
+    });
+  };
+
   useEffect(() => {
     const currentTask = tasks.find((task) => task.id === taskId);
 
@@ -56,5 +70,6 @@ export default function useTask() {
     onToggleComplete: handleToggleCompleteDate,
     onSaveTitle: handleSaveTitle,
     onSaveDescription: handleSaveDescription,
+    onAddLink: handleAddLink,
   };
 }
