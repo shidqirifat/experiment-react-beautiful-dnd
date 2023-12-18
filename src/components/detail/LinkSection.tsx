@@ -5,12 +5,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ContentSection, Section, TitleSection } from ".";
 import { formatDate } from "@/utils/time";
-import { LinkModal } from "./link";
+import { LinkModal, RemoveLink } from "./link";
 import { LinkItemProps, LinkSectionProps } from "@/types/link";
 
 const Dot = () => <>&#8226;</>;
 
-const LinkItem = ({ link, onEditLink }: LinkItemProps) => {
+const LinkItem = ({ link, onEditLink, onRemoveLink }: LinkItemProps) => {
   return (
     <a
       href={link.url}
@@ -32,7 +32,7 @@ const LinkItem = ({ link, onEditLink }: LinkItemProps) => {
             {formatDate(link.updated_at, "h:mm A")}
           </h4>
           <Dot />
-          <button className="underline underline-offset-1">Remove</button>
+          <RemoveLink onRemove={() => onRemoveLink(link.id)} />
           <Dot />
           <LinkModal type="edit" initialForm={link} onUpdate={onEditLink} />
         </div>
@@ -41,7 +41,11 @@ const LinkItem = ({ link, onEditLink }: LinkItemProps) => {
   );
 };
 
-export function LinkSection({ links, onEditLink }: LinkSectionProps) {
+export function LinkSection({
+  links,
+  onEditLink,
+  onRemoveLink,
+}: LinkSectionProps) {
   if (!links) return null;
 
   return (
@@ -54,7 +58,12 @@ export function LinkSection({ links, onEditLink }: LinkSectionProps) {
       />
       <ContentSection className="mt-3 space-y-2">
         {links.map((link) => (
-          <LinkItem key={link.id} link={link} onEditLink={onEditLink} />
+          <LinkItem
+            key={link.id}
+            link={link}
+            onEditLink={onEditLink}
+            onRemoveLink={onRemoveLink}
+          />
         ))}
       </ContentSection>
     </Section>

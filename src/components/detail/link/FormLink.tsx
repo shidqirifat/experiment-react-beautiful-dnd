@@ -1,24 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormInput } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormLinkProps } from "@/types/link";
 import { getTitleByType } from "@/utils/link";
+import { PopoverHeader } from "@/components/ui/popover";
 
 export const FormLink = ({ type, form, onSubmit, onClose }: FormLinkProps) => {
   return (
     <div>
-      <h2 className="text-sm text-slate-600 font-semibold text-center">
-        {getTitleByType(type)}
-      </h2>
-      <Button
-        variant="subtle"
-        className="absolute top-3 right-2"
-        onClick={onClose}
-      >
-        <FontAwesomeIcon icon={faXmark} />
-      </Button>
+      <PopoverHeader onClose={onClose}>{getTitleByType(type)}</PopoverHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
           <FormField
@@ -44,7 +34,7 @@ export const FormLink = ({ type, form, onSubmit, onClose }: FormLinkProps) => {
             <Button onClick={onClose} variant="subtle">
               Cancel
             </Button>
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="solid">
               {type === "add" ? "Insert" : "Update"}
             </Button>
           </div>

@@ -52,6 +52,7 @@ export function TaskModal() {
     onSaveDescription,
     onAddLink,
     onEditLink,
+    onRemoveLink,
   } = useTask();
 
   if (!task) return null;
@@ -70,7 +71,11 @@ export function TaskModal() {
             <DescriptionSection onSave={onSaveDescription}>
               {task.description as string}
             </DescriptionSection>
-            <LinkSection links={task.links} onEditLink={onEditLink} />
+            <LinkSection
+              links={task.links}
+              onEditLink={onEditLink}
+              onRemoveLink={onRemoveLink}
+            />
           </div>
           <div>
             <div>

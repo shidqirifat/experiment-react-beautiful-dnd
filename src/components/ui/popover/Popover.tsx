@@ -2,6 +2,9 @@ import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 
 import { cn } from "@/utils";
+import { Button } from "../button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const Popover = PopoverPrimitive.Root;
 
@@ -26,4 +29,26 @@ const PopoverContent = React.forwardRef<
 ));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-export { Popover, PopoverTrigger, PopoverContent };
+type PopoverHeaderProps = {
+  children: string;
+  onClose: () => void;
+};
+
+const PopoverHeader = ({ children, onClose }: PopoverHeaderProps) => {
+  return (
+    <div>
+      <h2 className="text-sm text-slate-600 font-semibold text-center">
+        {children}
+      </h2>
+      <Button
+        variant="subtle"
+        className="absolute top-3 right-2"
+        onClick={onClose}
+      >
+        <FontAwesomeIcon icon={faXmark} />
+      </Button>
+    </div>
+  );
+};
+
+export { Popover, PopoverTrigger, PopoverHeader, PopoverContent };

@@ -9,13 +9,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   leftIcon?: IconProp;
   sizeIcon?: SizeProp;
-  variant?: "primary" | "subtle" | "default";
+  variant?: "solid" | "subtle" | "default";
+  color?: "primary" | "danger";
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({
     variant = "default",
     type = "button",
+    color = "primary",
     leftIcon,
     sizeIcon,
     className,
@@ -30,7 +32,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {
             "bg-slate-200 hover:bg-slate-300": variant === "default",
             "hover:bg-slate-300": variant === "subtle",
-            "bg-blue-600 hover:bg-blue-700 text-white": variant === "primary",
+            "bg-blue-600 hover:bg-blue-700 text-white":
+              variant === "solid" && color === "primary",
+            "bg-red-600 hover:bg-red-700 text-white":
+              variant === "solid" && color === "danger",
           },
           {
             "grid grid-cols-[20px_1fr] gap-2": leftIcon,

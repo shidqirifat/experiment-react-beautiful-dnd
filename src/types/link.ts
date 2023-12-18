@@ -28,11 +28,13 @@ type FormLinkProps = {
 type LinkSectionProps = {
   links: Array<Link> | undefined;
   onEditLink: (id: string, form: LinkForm) => void;
+  onRemoveLink: (id: string) => void;
 };
 
 type LinkItemProps = {
   link: Link;
   onEditLink: (id: string, form: LinkForm) => void;
+  onRemoveLink: (id: string) => void;
 };
 
 export { linkSchema };

@@ -45,9 +45,7 @@ const Editor = (props: EditorProps) => {
         className="w-full h-52 p-4 border border-slate-200 rounded-sm focus:outline-blue-600"
       />
       <div className="flex gap-2">
-        <Button variant="primary" onClick={props.onSave}>
-          Save
-        </Button>
+        <Button onClick={props.onSave}>Save</Button>
         <Button variant="subtle" onClick={props.onCancel}>
           Cancel
         </Button>

@@ -76,6 +76,22 @@ export default function useTask() {
     });
   }, []);
 
+  const handleRemoveLink = useCallback((id: string) => {
+    setTask((prev) => {
+      if (!prev) return null;
+
+      const cloneLinks = [...(prev.links || [])];
+      const index = cloneLinks.findIndex((link) => link.id === id);
+
+      if (index === -1) return { ...prev, links: [] };
+      else {
+        cloneLinks.splice(index, 1);
+
+        return { ...prev, links: cloneLinks };
+      }
+    });
+  }, []);
+
   useEffect(() => {
     const currentTask = tasks.find((task) => task.id === taskId);
 
@@ -93,5 +109,6 @@ export default function useTask() {
     onSaveDescription: handleSaveDescription,
     onAddLink: handleAddLink,
     onEditLink: handleEditLink,
+    onRemoveLink: handleRemoveLink,
   };
 }
