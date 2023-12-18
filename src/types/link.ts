@@ -25,5 +25,22 @@ type FormLinkProps = {
   onClose: () => void;
 };
 
+type LinkSectionProps = {
+  links: Array<Link> | undefined;
+  onEditLink: (id: string, form: LinkForm) => void;
+};
+
+type LinkItemProps = {
+  link: Link;
+  onEditLink: (id: string, form: LinkForm) => void;
+};
+
 export { linkSchema };
-export type { LinkForm, TypeForm, LinkModalProps, FormLinkProps };
+export type {
+  LinkForm,
+  TypeForm,
+  LinkModalProps,
+  FormLinkProps,
+  LinkItemProps,
+  LinkSectionProps,
+};

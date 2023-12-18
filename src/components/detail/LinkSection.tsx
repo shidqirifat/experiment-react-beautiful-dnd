@@ -4,19 +4,9 @@ import {
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import { ContentSection, Section, TitleSection } from ".";
-import { Link } from "@/types/task";
 import { formatDate } from "@/utils/time";
 import { LinkModal } from "./link";
-import { LinkForm } from "@/types/link";
-
-type LinkSectionProps = {
-  links: Array<Link> | undefined;
-  onEditLink: (id: string, form: LinkForm) => void;
-};
-type LinkItemProps = {
-  link: Link;
-  onEditLink: (id: string, form: LinkForm) => void;
-};
+import { LinkItemProps, LinkSectionProps } from "@/types/link";
 
 const Dot = () => <>&#8226;</>;
 
