@@ -1,20 +1,19 @@
 import { IconProp, SizeProp } from "@fortawesome/fontawesome-svg-core";
 import { Button } from ".";
+import { MouseEvent } from "react";
 
 type ButtonActionProps = {
   children: string;
   icon: IconProp;
   sizeIcon?: SizeProp;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  className?: string;
 };
 
-export const ButtonAction = ({
-  children,
-  icon,
-  sizeIcon,
-}: ButtonActionProps) => {
+export const ButtonAction = (props: ButtonActionProps) => {
   return (
-    <Button leftIcon={icon} sizeIcon={sizeIcon} className="w-full text-left">
-      {children}
+    <Button {...props} leftIcon={props.icon} className="w-full text-left">
+      {props.children}
     </Button>
   );
 };

@@ -28,6 +28,7 @@ const TASKS: Array<Task> = [
       },
     ],
     due_date: { date: "2023-12-04T05:03:03Z", is_done: true },
+    archived: false,
   },
   {
     id: "2",
@@ -78,6 +79,7 @@ const TASKS: Array<Task> = [
       },
     ],
     due_date: { date: "2023-12-19T05:03:03Z", is_done: true },
+    archived: false,
   },
   {
     id: "3",
@@ -109,6 +111,7 @@ const TASKS: Array<Task> = [
       },
     ],
     due_date: { date: "2023-12-07T05:03:03Z", is_done: false },
+    archived: false,
   },
   {
     id: "4",
@@ -131,6 +134,7 @@ const TASKS: Array<Task> = [
       },
     ],
     due_date: { date: "2023-12-13T05:03:03Z", is_done: false },
+    archived: false,
   },
 ];
 

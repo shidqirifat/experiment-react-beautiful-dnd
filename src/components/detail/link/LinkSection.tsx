@@ -3,9 +3,9 @@ import {
   faArrowUpRightFromSquare,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
-import { ContentSection, Section, TitleSection } from ".";
+import { ContentSection, Section, TitleSection } from "..";
 import { formatDate } from "@/utils/time";
-import { LinkModal, RemoveLink } from "./link";
+import { ActionLink, RemoveLink } from ".";
 import { LinkItemProps, LinkSectionProps } from "@/types/link";
 
 const Dot = () => <>&#8226;</>;
@@ -34,7 +34,7 @@ const LinkItem = ({ link, onEditLink, onRemoveLink }: LinkItemProps) => {
           <Dot />
           <RemoveLink onRemove={() => onRemoveLink(link.id)} />
           <Dot />
-          <LinkModal type="edit" initialForm={link} onUpdate={onEditLink} />
+          <ActionLink type="edit" initialForm={link} onUpdate={onEditLink} />
         </div>
       </div>
     </a>

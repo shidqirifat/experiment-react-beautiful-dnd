@@ -21,7 +21,7 @@ const generateInitialForm = (form: Link | undefined): LinkForm => {
   };
 };
 
-export function LinkModal({
+export function ActionLink({
   initialForm,
   type,
   onInsert,

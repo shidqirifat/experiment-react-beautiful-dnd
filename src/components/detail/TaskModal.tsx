@@ -3,7 +3,6 @@ import {
   faBoxesPacking,
   faTableList,
   faTags,
-  faTrash,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -17,8 +16,9 @@ import { Shadow } from "../ui/modal";
 import useTask from "@/hooks/useTask";
 import { ReactNode } from "react";
 import { faClock } from "@fortawesome/free-regular-svg-icons/faClock";
-import { LinkModal } from "./link";
+import { ActionLink } from "./link";
 import { ButtonAction } from "../ui/button";
+import { ActionDelete } from "./delete";
 
 type LayoutProps = { children: ReactNode };
 type ModalProps = { children: ReactNode; onClose: () => void };
@@ -84,7 +84,7 @@ export function TaskModal() {
                 <ButtonAction icon={faTags}>Labels</ButtonAction>
                 <ButtonAction icon={faTableList}>Todos</ButtonAction>
                 <ButtonAction icon={faClock}>Date</ButtonAction>
-                <LinkModal type="add" onInsert={onAddLink} />
+                <ActionLink type="add" onInsert={onAddLink} />
               </div>
             </div>
 
@@ -92,7 +92,7 @@ export function TaskModal() {
               <Subtitle>Actions</Subtitle>
               <div className="space-y-2 mt-1">
                 <ButtonAction icon={faBoxesPacking}>Archive</ButtonAction>
-                <ButtonAction icon={faTrash}>Delete</ButtonAction>
+                <ActionDelete id={task.id} />
               </div>
             </div>
           </div>

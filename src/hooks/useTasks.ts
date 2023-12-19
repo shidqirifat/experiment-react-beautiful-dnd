@@ -4,12 +4,14 @@ import { reorder } from "@/utils/reorder";
 import { DropResult } from "react-beautiful-dnd";
 import { Task } from "@/types/task";
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function useTasks() {
   const [tasks, setTasks] = useLocalStorage({
     key: "data",
     defaultValue: TASKS,
   });
+  const navigate = useNavigate();
 
   const handleReorder = useCallback(
     ({ source, destination }: DropResult) => {
@@ -36,14 +38,34 @@ export default function useTasks() {
   );
 
   const handleNewTask = useCallback((title: string) => {
-    const newTask: Task = { id: (+new Date()).toString(), title };
+    const newTask: Task = {
+      id: (+new Date()).toString(),
+      title,
+      archived: false,
+    };
+
     setTasks((prev) => [...prev, newTask]);
   }, []);
+
+  const handleDeleteTask = useCallback(
+    (id: string) => {
+      const index = tasks.findIndex((task) => task.id === id);
+      if (index < 0) return;
+
+      const cloneTasks = [...tasks];
+      cloneTasks.splice(index, 1);
+      setTasks(cloneTasks);
+
+      navigate("/");
+    },
+    [tasks]
+  );
 
   return {
     tasks,
     onReorder: handleReorder,
     updateTask,
     onNewTask: handleNewTask,
+    onDeleteTask: handleDeleteTask,
   };
 }

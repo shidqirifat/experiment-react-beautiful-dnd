@@ -30,6 +30,7 @@ type Task = {
   todos?: Array<Todo>;
   links?: Array<Link>;
   due_date?: DueDate;
+  archived: boolean;
 };
 
 export type { Label, Link, DueDate, Todo, Task };
