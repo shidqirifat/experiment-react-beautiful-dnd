@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { ButtonAction } from "@/components/ui/button";
+import { Button, ButtonAction } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Popover,
@@ -24,6 +24,7 @@ const generateInitialForm = (form: Link | undefined): LinkForm => {
 export function ActionLink({
   initialForm,
   type,
+  withIcon,
   onInsert,
   onUpdate,
 }: LinkModalProps) {
@@ -49,11 +50,15 @@ export function ActionLink({
 
   return (
     <Popover open={open} onOpenChange={toggleOpen}>
-      <PopoverTrigger className={cx({ "w-full": type === "add" })}>
+      <PopoverTrigger className={cx({ "w-full": type === "add" && withIcon })}>
         {type === "add" ? (
-          <ButtonAction icon={faLink} sizeIcon="sm">
-            {getTitleByType(type)}
-          </ButtonAction>
+          withIcon ? (
+            <ButtonAction icon={faLink} sizeIcon="sm">
+              {getTitleByType(type)}
+            </ButtonAction>
+          ) : (
+            <Button>Add</Button>
+          )
         ) : (
           <button
             onClick={(e) => {

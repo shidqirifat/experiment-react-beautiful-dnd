@@ -2,17 +2,13 @@ import { IconProp, SizeProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode } from "react";
 import cx from "clsx";
-import { Button } from "../ui/button";
 
 type SectionProps = { children: ReactNode };
 type TitleSectionProps = {
   icon: IconProp;
   sizeIcon?: SizeProp;
   label: string;
-  action?: {
-    label: string;
-    onClick?: () => void;
-  };
+  action?: ReactNode;
 };
 type ContentSectionProps = { className?: string; children: ReactNode };
 type SubtitleProps = SectionProps;
@@ -33,7 +29,7 @@ export function TitleSection({
         <FontAwesomeIcon icon={icon} size={sizeIcon} />
         <h1 className="text-base font-semibold">{label}</h1>
       </div>
-      {action && <Button onClick={action.onClick}>{action.label}</Button>}
+      {action}
     </div>
   );
 }

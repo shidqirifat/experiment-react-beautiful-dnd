@@ -78,7 +78,7 @@ export function DescriptionSection({
       <TitleSection
         icon={faIndent}
         label="Description"
-        action={text ? { label: "Edit", onClick: toggleEdit } : undefined}
+        action={text ? <Button onClick={toggleEdit}>Edit</Button> : undefined}
       />
       <ContentSection className="mt-3">
         {text ? (

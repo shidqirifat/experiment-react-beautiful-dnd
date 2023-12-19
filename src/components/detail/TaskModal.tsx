@@ -73,6 +73,7 @@ export function TaskModal() {
             </DescriptionSection>
             <LinkSection
               links={task.links}
+              onAddLink={onAddLink}
               onEditLink={onEditLink}
               onRemoveLink={onRemoveLink}
             />
@@ -84,7 +85,7 @@ export function TaskModal() {
                 <ButtonAction icon={faTags}>Labels</ButtonAction>
                 <ButtonAction icon={faTableList}>Todos</ButtonAction>
                 <ButtonAction icon={faClock}>Date</ButtonAction>
-                <ActionLink type="add" onInsert={onAddLink} />
+                <ActionLink type="add" onInsert={onAddLink} withIcon />
               </div>
             </div>
 

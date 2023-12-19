@@ -43,6 +43,7 @@ const LinkItem = ({ link, onEditLink, onRemoveLink }: LinkItemProps) => {
 
 export function LinkSection({
   links,
+  onAddLink,
   onEditLink,
   onRemoveLink,
 }: LinkSectionProps) {
@@ -54,7 +55,7 @@ export function LinkSection({
         icon={faLink}
         sizeIcon="sm"
         label="Attachments"
-        action={{ label: "Add" }}
+        action={<ActionLink type="add" onInsert={onAddLink} />}
       />
       <ContentSection className="mt-3 space-y-2">
         {links.map((link) => (
