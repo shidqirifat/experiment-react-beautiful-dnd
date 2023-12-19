@@ -5,19 +5,12 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import usePopover from "@/hooks/usePopover";
 
 type RemoveLinkProps = { onRemove: () => void };
 
 export function RemoveLink({ onRemove }: RemoveLinkProps) {
-  const [open, setOpen] = useState(false);
-
-  const toggleOpen = (value: boolean) => {
-    if (value) setOpen(true);
-    else handleClose();
-  };
-
-  const handleClose = () => setOpen(false);
+  const { open, toggleOpen, onClose } = usePopover();
 
   return (
     <Popover open={open} onOpenChange={toggleOpen}>
@@ -33,7 +26,7 @@ export function RemoveLink({ onRemove }: RemoveLinkProps) {
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-80" align="end">
-        <PopoverHeader onClose={handleClose}>Remove attachment?</PopoverHeader>
+        <PopoverHeader onClose={onClose}>Remove attachment?</PopoverHeader>
 
         <div className="mt-4 space-y-4">
           <h4 className="text-sm text-slate-600">

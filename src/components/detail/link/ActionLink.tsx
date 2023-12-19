@@ -7,12 +7,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import { LinkForm, LinkModalProps, linkSchema } from "@/types/link";
 import { Link } from "@/types/task";
 import cx from "clsx";
 import { getTitleByType } from "@/utils/link";
 import { FormLink } from ".";
+import usePopover from "@/hooks/usePopover";
 
 const generateInitialForm = (form: Link | undefined): LinkForm => {
   return {
@@ -27,11 +27,11 @@ export function ActionLink({
   onInsert,
   onUpdate,
 }: LinkModalProps) {
-  const [open, setOpen] = useState(false);
   const form = useForm<LinkForm>({
     resolver: zodResolver(linkSchema),
     defaultValues: generateInitialForm(initialForm),
   });
+  const { open, toggleOpen, onClose } = usePopover();
 
   const onSubmit = (form: LinkForm) => {
     if (type === "add" && onInsert) onInsert(form);
@@ -42,13 +42,8 @@ export function ActionLink({
     handleClose();
   };
 
-  const toggleOpen = (value: boolean) => {
-    if (value) setOpen(true);
-    else handleClose();
-  };
-
   const handleClose = () => {
-    setOpen(false);
+    onClose();
     form.reset();
   };
 

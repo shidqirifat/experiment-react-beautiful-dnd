@@ -5,22 +5,15 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import usePopover from "@/hooks/usePopover";
 import useTasks from "@/hooks/useTasks";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 
 type ActionDeleteProps = { id: string };
 
 export function ActionDelete({ id }: ActionDeleteProps) {
   const { onDeleteTask } = useTasks();
-  const [open, setOpen] = useState(false);
-
-  const toggleOpen = (value: boolean) => {
-    if (value) setOpen(true);
-    else handleClose();
-  };
-
-  const handleClose = () => setOpen(false);
+  const { open, toggleOpen, onClose } = usePopover();
 
   return (
     <Popover open={open} onOpenChange={toggleOpen}>
@@ -37,7 +30,7 @@ export function ActionDelete({ id }: ActionDeleteProps) {
         </ButtonAction>
       </PopoverTrigger>
       <PopoverContent className="w-80" align="end">
-        <PopoverHeader onClose={handleClose}>Delete this card?</PopoverHeader>
+        <PopoverHeader onClose={onClose}>Delete this card?</PopoverHeader>
 
         <div className="mt-4 space-y-4">
           <h4 className="text-sm text-slate-600">
