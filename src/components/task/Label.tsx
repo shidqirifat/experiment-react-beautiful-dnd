@@ -26,7 +26,7 @@ export const Labels = ({ labels }: LabelsProps) => {
   if (!labels) return null;
 
   return (
-    <div>
+    <div className="mb-1">
       {labels.map((label) => (
         <LabelItem key={label.id} label={label} cardLabel />
       ))}

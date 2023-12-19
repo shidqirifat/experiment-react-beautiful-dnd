@@ -1,32 +1,34 @@
-import { ButtonHTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
+import { ComponentProps, forwardRef } from "react";
 import cx from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp, SizeProp } from "@fortawesome/fontawesome-svg-core";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  onClick?: (e: MouseEvent) => void;
-  children: ReactNode;
+type ButtonProps = ComponentProps<"button"> & {
   className?: string;
   leftIcon?: IconProp;
   sizeIcon?: SizeProp;
   variant?: "solid" | "subtle" | "default";
   color?: "primary" | "danger";
-}
+};
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({
-    variant = "default",
-    type = "button",
-    color = "primary",
-    leftIcon,
-    sizeIcon,
-    className,
-    ...props
-  }: ButtonProps) => {
+  (
+    {
+      variant = "default",
+      type = "button",
+      color = "primary",
+      leftIcon,
+      sizeIcon,
+      className,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <button
+        {...props}
+        ref={ref}
         type={type}
-        onClick={props.onClick}
         className={cx(
           "transition py-[6px] px-3 text-sm font-semibold rounded-sm",
           {
@@ -42,7 +44,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           },
           className
         )}
-        {...props}
       >
         {leftIcon && (
           <div className="h-full grid place-content-center">

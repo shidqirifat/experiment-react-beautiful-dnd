@@ -10,7 +10,7 @@ export function TaskCard({ task }: TaskCardProps) {
   return (
     <RouterLink to={task.id}>
       <Labels labels={task.labels} />
-      <h1 className="text-base mt-1">{task.title}</h1>
+      <h1 className="text-base">{task.title}</h1>
       <div className="flex gap-3 items-center">
         <Date dueDate={task.due_date} />
         {task.description && <FontAwesomeIcon icon={faIndent} />}

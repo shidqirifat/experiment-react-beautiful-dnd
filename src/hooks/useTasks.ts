@@ -35,5 +35,15 @@ export default function useTasks() {
     [tasks]
   );
 
-  return { tasks, onReorder: handleReorder, updateTask };
+  const handleNewTask = useCallback((title: string) => {
+    const newTask: Task = { id: (+new Date()).toString(), title };
+    setTasks((prev) => [...prev, newTask]);
+  }, []);
+
+  return {
+    tasks,
+    onReorder: handleReorder,
+    updateTask,
+    onNewTask: handleNewTask,
+  };
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Task } from "@/types/task";
-import { TaskCard } from ".";
+import { NewTask, TaskCard } from ".";
 import useTasks from "@/hooks/useTasks";
 
 type ListTaskProps = { tasks: Array<Task> };
@@ -34,7 +34,7 @@ export const ListCardTask = () => {
   const { tasks, onReorder } = useTasks();
 
   return (
-    <div className="bg-gray-200 px-2 py-4 rounded-lg">
+    <div className="bg-gray-200 px-2 pt-4 pb-1 rounded-lg">
       <div className="px-4 mb-4 flex justify-between items-center overflow-hidden">
         <h1 className="text-lg font-semibold">Done 🎉</h1>
         <button className="text-2xl px-1 py-1 -mt-3 font-semibold hover:bg-gray-300 transition">
@@ -55,6 +55,7 @@ export const ListCardTask = () => {
           )}
         </Droppable>
       </DragDropContext>
+      <NewTask />
     </div>
   );
 };

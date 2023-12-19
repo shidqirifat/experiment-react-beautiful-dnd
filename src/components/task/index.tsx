@@ -4,3 +4,4 @@ export * from "./Link";
 export * from "./CheckTodos";
 export * from "./TaskCard";
 export * from "./ListCardTask";
+export * from "./NewTask";
