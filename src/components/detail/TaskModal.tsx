@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowRotateRight,
   faBoxesPacking,
   faTableList,
   faTags,
@@ -19,21 +20,39 @@ import { faClock } from "@fortawesome/free-regular-svg-icons/faClock";
 import { ActionLink } from "./link";
 import { ButtonAction } from "../ui/button";
 import { ActionDelete } from "./delete";
+import useArchiveTasks from "@/hooks/useArchiveTasks";
+import cx from "clsx";
 
 type LayoutProps = { children: ReactNode };
-type ModalProps = { children: ReactNode; onClose: () => void };
+type ModalProps = {
+  children: ReactNode;
+  archived: boolean;
+  onClose: () => void;
+};
 
-const Modal = ({ children, onClose }: ModalProps) => {
+const ArchiveBackground = () => {
+  return (
+    <div className="flex items-center gap-2 bg-[url('/pattern.png')] bg-cover px-4 py-[26px] rounded-t-lg">
+      <FontAwesomeIcon icon={faBoxesPacking} size="sm" />
+      <h3 className="text-slate-900 text-base font-medium">
+        This card is archived.
+      </h3>
+    </div>
+  );
+};
+
+const Modal = ({ children, archived, onClose }: ModalProps) => {
   return (
     <Shadow onClick={onClose}>
-      <div className="absolute z-10 top-12 left-[50%] translate-x-[-50%] w-[90vw] bg-slate-50 rounded-lg p-4 pt-5">
+      <div className="absolute z-10 top-12 left-[50%] translate-x-[-50%] w-[90vw] bg-slate-50 rounded-lg">
+        {archived && <ArchiveBackground />}
         <button
           onClick={onClose}
           className="absolute top-5 right-4 transition hover:bg-slate-200 py-1 px-2 rounded"
         >
           <FontAwesomeIcon icon={faXmark} color="gray" size="lg" />
         </button>
-        {children}
+        <div className={cx("p-4", { "pt-2": archived })}>{children}</div>
       </div>
     </Shadow>
   );
@@ -54,12 +73,13 @@ export function TaskModal() {
     onEditLink,
     onRemoveLink,
   } = useTask();
+  const { toggleArchive } = useArchiveTasks();
 
   if (!task) return null;
 
   return (
     <>
-      <Modal onClose={onClose}>
+      <Modal archived={task.archived} onClose={onClose}>
         <HeaderSection title={task.title} onSave={onSaveTitle} />
         <Layout>
           <div>
@@ -92,8 +112,25 @@ export function TaskModal() {
             <div className="mt-8">
               <Subtitle>Actions</Subtitle>
               <div className="space-y-2 mt-1">
-                <ButtonAction icon={faBoxesPacking}>Archive</ButtonAction>
-                <ActionDelete id={task.id} />
+                {task.archived ? (
+                  <>
+                    <ButtonAction
+                      onClick={() => toggleArchive(task.id)}
+                      icon={faArrowRotateRight}
+                      flipIcon="horizontal"
+                    >
+                      Send to board
+                    </ButtonAction>
+                    <ActionDelete id={task.id} />
+                  </>
+                ) : (
+                  <ButtonAction
+                    onClick={() => toggleArchive(task.id)}
+                    icon={faBoxesPacking}
+                  >
+                    Archive
+                  </ButtonAction>
+                )}
               </div>
             </div>
           </div>

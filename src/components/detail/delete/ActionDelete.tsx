@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/popover";
 import usePopover from "@/hooks/usePopover";
 import useTasks from "@/hooks/useTasks";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 type ActionDeleteProps = { id: string };
 
@@ -23,7 +23,9 @@ export function ActionDelete({ id }: ActionDeleteProps) {
             e.preventDefault();
             toggleOpen(true);
           }}
-          icon={faTrash}
+          icon={faMinus}
+          variant="solid"
+          color="danger"
           className="w-full"
         >
           Delete

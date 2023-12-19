@@ -94,7 +94,6 @@ export default function useTask() {
 
   useEffect(() => {
     const currentTask = tasks.find((task) => task.id === taskId);
-
     if (currentTask) setTask(currentTask);
     else handleClose();
 

@@ -1,12 +1,17 @@
 import { ComponentProps, forwardRef } from "react";
 import cx from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp, SizeProp } from "@fortawesome/fontawesome-svg-core";
+import {
+  FlipProp,
+  IconProp,
+  SizeProp,
+} from "@fortawesome/fontawesome-svg-core";
 
 type ButtonProps = ComponentProps<"button"> & {
   className?: string;
   leftIcon?: IconProp;
   sizeIcon?: SizeProp;
+  flipIcon?: FlipProp;
   variant?: "solid" | "subtle" | "default";
   color?: "primary" | "danger";
 };
@@ -19,6 +24,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       color = "primary",
       leftIcon,
       sizeIcon,
+      flipIcon,
       className,
       ...props
     },
@@ -47,7 +53,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {leftIcon && (
           <div className="h-full grid place-content-center">
-            <FontAwesomeIcon icon={leftIcon} size={sizeIcon} />
+            <FontAwesomeIcon icon={leftIcon} size={sizeIcon} flip={flipIcon} />
           </div>
         )}
         {props.children}

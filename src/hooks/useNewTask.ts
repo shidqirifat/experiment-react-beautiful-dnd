@@ -4,15 +4,14 @@ import useTasks from "./useTasks";
 
 export default function useNewTask() {
   const { onNewTask } = useTasks();
-  const [isNewTask, setNewTask] = useState(true);
+  const [isNewTask, setNewTask] = useState(false);
   const [title, setTitle] = useState("");
 
   const toggleNewTask = useCallback(() => setNewTask((prev) => !prev), []);
 
   const handleNewTask = useCallback(() => {
     if (title) onNewTask(title);
-
-    toggleNewTask();
+    setTitle("");
   }, [title]);
 
   const ref = useClickOutside(() => {

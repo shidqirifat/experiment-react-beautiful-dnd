@@ -1,14 +1,14 @@
 import { useLocalStorage } from "@mantine/hooks";
-import { TASKS } from "@/datas/task";
 import { reorder } from "@/utils/reorder";
 import { DropResult } from "react-beautiful-dnd";
 import { Task } from "@/types/task";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { TASKS } from "@/datas/task";
 
 export default function useTasks() {
   const [tasks, setTasks] = useLocalStorage({
-    key: "data",
+    key: "tasks",
     defaultValue: TASKS,
   });
   const navigate = useNavigate();
@@ -19,7 +19,6 @@ export default function useTasks() {
       if (destination.index === source.index) return;
 
       const newTasks = reorder(tasks, source.index, destination.index);
-
       setTasks(newTasks);
     },
     [tasks]
@@ -29,7 +28,6 @@ export default function useTasks() {
     (id: string, newTask: Task) => {
       const index = tasks.findIndex((task) => task.id === id);
       if (index < 0) return;
-
       const cloneTasks = [...tasks];
       cloneTasks.splice(index, 1, newTask);
       setTasks(cloneTasks);
@@ -61,8 +59,14 @@ export default function useTasks() {
     [tasks]
   );
 
+  const tasksActive = useMemo(
+    () => tasks.filter((task) => !task.archived),
+    [tasks]
+  );
+
   return {
     tasks,
+    tasksActive,
     onReorder: handleReorder,
     updateTask,
     onNewTask: handleNewTask,

@@ -3,20 +3,30 @@ import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import useNewTask from "@/hooks/useNewTask";
+import { KeyboardEvent } from "react";
 
 export function NewTask() {
   const { ref, isNewTask, title, toggleNewTask, setTitle, onNewTask } =
     useNewTask();
+
+  const handleEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.code === "Enter") {
+      e.preventDefault();
+      onNewTask();
+    }
+  };
 
   return (
     <div ref={ref}>
       {isNewTask ? (
         <div className="my-2 space-y-2">
           <Textarea
+            autoFocus
             className="rounded-lg h-20 resize-none"
             placeholder="Enter a title for this card..."
             value={title}
             onChange={(e) => setTitle(e.currentTarget.value)}
+            onKeyDown={handleEnter}
           />
           <div className="flex items-center gap-1">
             <Button onClick={onNewTask} variant="solid" className="!rounded">

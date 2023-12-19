@@ -15,7 +15,7 @@ function TaskItem({ task, index }: TaskItemProps) {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className="rounded-lg bg-white px-4 py-2 select-none !cursor-pointer"
+          className="rounded-lg bg-white select-none !cursor-pointer"
         >
           <TaskCard task={task} />
         </div>
@@ -31,7 +31,7 @@ const ListTask = React.memo(function QuoteList({ tasks }: ListTaskProps) {
 });
 
 export const ListCardTask = () => {
-  const { tasks, onReorder } = useTasks();
+  const { tasksActive, onReorder } = useTasks();
 
   return (
     <div className="bg-gray-200 px-2 pt-4 pb-1 rounded-lg">
@@ -49,7 +49,7 @@ export const ListCardTask = () => {
               {...provided.droppableProps}
               className="space-y-2"
             >
-              <ListTask tasks={tasks} />
+              <ListTask tasks={tasksActive} />
               {provided.placeholder}
             </div>
           )}

@@ -9,7 +9,7 @@ export default function usePopover() {
   }, []);
 
   const handleClose = useCallback((fn?: () => void) => {
-    if (fn) fn();
+    if (typeof fn === "function") fn();
 
     setOpen(false);
   }, []);

@@ -8,7 +8,7 @@ type TaskCardProps = { task: Task };
 
 export function TaskCard({ task }: TaskCardProps) {
   return (
-    <RouterLink to={task.id}>
+    <RouterLink to={task.id} className="px-4 py-2 block">
       <Labels labels={task.labels} />
       <h1 className="text-base">{task.title}</h1>
       <div className="flex gap-3 items-center">
