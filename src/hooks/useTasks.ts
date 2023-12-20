@@ -6,12 +6,20 @@ import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { TASKS } from "@/datas/task";
 import { useSearch } from "@/store/search";
+import useSort from "./useSort";
+import {
+  sortByCreatedAtAsc,
+  sortByCreatedAtDesc,
+  sortByTitleAsc,
+  sortByTitleDesc,
+} from "@/utils/sort";
 
 export default function useTasks() {
   const [tasks, setTasks] = useLocalStorage({
     key: "tasks",
     defaultValue: TASKS,
   });
+  const { sort } = useSort();
   const { keyword } = useSearch();
   const [debouncedKeyword] = useDebouncedValue(keyword, 300);
   const navigate = useNavigate();
@@ -62,16 +70,29 @@ export default function useTasks() {
     [tasks]
   );
 
-  const activeTasks = useMemo(
-    () =>
-      tasks.filter((task) => {
+  const activeTasks = useMemo(() => {
+    return tasks
+      .filter((task) => {
         return (
           task.title.toLowerCase().includes(debouncedKeyword.toLowerCase()) &&
           !task.archived
         );
-      }),
-    [tasks, debouncedKeyword]
-  );
+      })
+      .sort((a, b) => {
+        const { sortBy, sortType } = sort;
+
+        if (sortBy === "created-at") {
+          if (sortType === "asc") return sortByCreatedAtAsc(a.id, b.id);
+          if (sortType === "desc") return sortByCreatedAtDesc(a.id, b.id);
+        }
+        if (sortBy === "title") {
+          if (sortType === "asc") return sortByTitleAsc(a.title, b.title);
+          if (sortType === "desc") return sortByTitleDesc(a.title, b.title);
+        }
+
+        return 1;
+      });
+  }, [tasks, debouncedKeyword, sort]);
 
   return {
     tasks,

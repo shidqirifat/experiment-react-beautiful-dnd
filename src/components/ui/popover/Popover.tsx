@@ -4,7 +4,8 @@ import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { cn } from "@/utils";
 import { Button } from "../button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faXmark } from "@fortawesome/free-solid-svg-icons";
+import cx from "clsx";
 
 const Popover = PopoverPrimitive.Root;
 
@@ -31,21 +32,52 @@ PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 type PopoverHeaderProps = {
   children: string;
+  size?: "md" | "lg";
   onClose: () => void;
+  onBack?: () => void;
 };
 
-const PopoverHeader = ({ children, onClose }: PopoverHeaderProps) => {
+const PopoverHeader = ({
+  children,
+  size = "md",
+  onClose,
+  onBack,
+}: PopoverHeaderProps) => {
   return (
     <div>
-      <h2 className="text-sm text-slate-600 font-semibold text-center">
+      {onBack && (
+        <Button
+          onClick={onBack}
+          variant="subtle"
+          className={cx("absolute left-3", {
+            "top-3": size === "md",
+            "top-[14px]": size === "lg",
+          })}
+        >
+          <FontAwesomeIcon icon={faChevronLeft} style={{ color: "#808080" }} />
+        </Button>
+      )}
+      <h2
+        className={cx("text-slate-700 font-semibold text-center", {
+          "text-sm": size === "md",
+          "text-base": size === "lg",
+        })}
+      >
         {children}
       </h2>
       <Button
         variant="subtle"
-        className="absolute top-3 right-2"
+        className={cx("absolute right-3", {
+          "top-3": size === "md",
+          "top-[14px]": size === "lg",
+        })}
         onClick={onClose}
       >
-        <FontAwesomeIcon icon={faXmark} />
+        <FontAwesomeIcon
+          icon={faXmark}
+          size={size === "md" ? undefined : size}
+          style={{ color: "#808080" }}
+        />
       </Button>
     </div>
   );

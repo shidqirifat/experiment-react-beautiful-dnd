@@ -3,6 +3,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Task } from "@/types/task";
 import { NewTask, TaskCard } from ".";
 import useTasks from "@/hooks/useTasks";
+import { ActionMore } from "./more";
 
 type ListTaskProps = { tasks: Array<Task> };
 type TaskItemProps = { task: Task; index: number };
@@ -37,9 +38,7 @@ export const ListCardTask = () => {
     <div className="bg-gray-200 px-2 pt-4 pb-1 rounded-lg">
       <div className="px-4 mb-4 flex justify-between items-center overflow-hidden">
         <h1 className="text-lg font-semibold">Done 🎉</h1>
-        <button className="text-2xl px-1 py-1 -mt-3 font-semibold hover:bg-gray-300 transition">
-          ...
-        </button>
+        <ActionMore />
       </div>
       <DragDropContext onDragEnd={onReorder}>
         <Droppable droppableId="list">

@@ -3,8 +3,8 @@ import { COLORS } from "./color";
 
 const TASKS: Array<Task> = [
   {
-    id: "1",
-    title: "Task 1",
+    id: "1703070749456",
+    title: "Task Pertama",
     todos: [
       {
         id: "1",
@@ -31,8 +31,8 @@ const TASKS: Array<Task> = [
     archived: false,
   },
   {
-    id: "2",
-    title: "Task 2",
+    id: "1703070751237",
+    title: "Task Kedua",
     labels: [
       {
         id: "2",
@@ -82,8 +82,8 @@ const TASKS: Array<Task> = [
     archived: false,
   },
   {
-    id: "3",
-    title: "Task 3",
+    id: "1703070766592",
+    title: "Task Ketiga",
     labels: [
       {
         id: "3",
@@ -114,8 +114,8 @@ const TASKS: Array<Task> = [
     archived: false,
   },
   {
-    id: "4",
-    title: "Task 4",
+    id: "1703070767212",
+    title: "Task Keempat",
     labels: [
       {
         id: "4",
