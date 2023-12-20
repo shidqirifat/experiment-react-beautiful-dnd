@@ -11,6 +11,7 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import useSort from "@/hooks/useSort";
 import { SortBy, SortType } from "@/types/sort";
+import useArchiveTasks from "@/hooks/useArchiveTasks";
 
 type ItemProps = { children: string; onClick?: () => void };
 
@@ -46,6 +47,7 @@ const Border = () => {
 export function ActionMore() {
   const { open, toggleOpen, onClose } = usePopover();
   const [activeAction, setActiveAction] = useState<Actions | null>(null);
+  const { moveAllToArchive } = useArchiveTasks();
   const { onSort } = useSort();
 
   const handleSort = (sortBy: SortBy, sortType: SortType) => {
@@ -89,7 +91,9 @@ export function ActionMore() {
             <>
               <Item onClick={() => setActiveAction("sort-by")}>Sort by...</Item>
               <Border />
-              <Item>Archive all cards in this list</Item>
+              <Item onClick={moveAllToArchive}>
+                Archive all cards in this list
+              </Item>
               <Item>Archive this list</Item>
             </>
           )}

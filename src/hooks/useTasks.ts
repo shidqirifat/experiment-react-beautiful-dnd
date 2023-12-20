@@ -97,6 +97,7 @@ export default function useTasks() {
   return {
     tasks,
     activeTasks,
+    setTasks,
     onReorder: handleReorder,
     updateTask,
     onNewTask: handleNewTask,
