@@ -1,16 +1,19 @@
-import { useLocalStorage } from "@mantine/hooks";
+import { useDebouncedValue, useLocalStorage } from "@mantine/hooks";
 import { reorder } from "@/utils/reorder";
 import { DropResult } from "react-beautiful-dnd";
 import { Task } from "@/types/task";
 import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { TASKS } from "@/datas/task";
+import { useSearch } from "@/store/search";
 
 export default function useTasks() {
   const [tasks, setTasks] = useLocalStorage({
     key: "tasks",
     defaultValue: TASKS,
   });
+  const { keyword } = useSearch();
+  const [debouncedKeyword] = useDebouncedValue(keyword, 300);
   const navigate = useNavigate();
 
   const handleReorder = useCallback(
@@ -60,8 +63,14 @@ export default function useTasks() {
   );
 
   const activeTasks = useMemo(
-    () => tasks.filter((task) => !task.archived),
-    [tasks]
+    () =>
+      tasks.filter((task) => {
+        return (
+          task.title.toLowerCase().includes(debouncedKeyword.toLowerCase()) &&
+          !task.archived
+        );
+      }),
+    [tasks, debouncedKeyword]
   );
 
   return {
