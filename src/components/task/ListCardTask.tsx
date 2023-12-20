@@ -31,13 +31,27 @@ const ListTask = React.memo(function QuoteList({ tasks }: ListTaskProps) {
   ));
 });
 
+const generateTextMatch = (tasks: Array<Task>) => {
+  const length = tasks.length;
+
+  if (length > 1) return `${length} cards match filters`;
+  return `${length} card matches filters`;
+};
+
 export const ListCardTask = () => {
-  const { activeTasks, onReorder } = useTasks();
+  const { activeTasks, debouncedKeyword, onReorder } = useTasks();
 
   return (
-    <div className="bg-gray-200 px-2 pt-4 pb-1 rounded-lg">
-      <div className="px-4 mb-4 flex justify-between items-center overflow-hidden">
-        <h1 className="text-lg font-semibold">Done 🎉</h1>
+    <div className="bg-gray-200 px-2 pt-3 pb-1 rounded-lg">
+      <div className="px-4 mb-2 flex justify-between items-center overflow-hidden">
+        <div>
+          <h1 className="text-lg font-semibold mb-1">Done 🎉</h1>
+          {debouncedKeyword && (
+            <h4 className="text-sm text-slate-600 font-normal mb-1">
+              {generateTextMatch(activeTasks)}
+            </h4>
+          )}
+        </div>
         <ActionMore />
       </div>
       <DragDropContext onDragEnd={onReorder}>

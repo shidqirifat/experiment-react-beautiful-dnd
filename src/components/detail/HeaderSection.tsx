@@ -56,7 +56,7 @@ export function HeaderSection({ title, onSave }: HeaderSectionProps) {
   return (
     <Section>
       <Title onSave={onSave}>{title}</Title>
-      <ContentSection className="mt-1">
+      <ContentSection>
         <InList>Done 🎉</InList>
       </ContentSection>
     </Section>
