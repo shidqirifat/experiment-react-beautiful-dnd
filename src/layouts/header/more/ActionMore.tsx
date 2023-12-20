@@ -16,18 +16,15 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styleDefault } from "..";
 import { useState } from "react";
-import useArchiveTasks from "@/hooks/useArchiveTasks";
 import { ArchivedItems, MenuItem } from ".";
 
 type Menus = "archive-list" | "archive-items" | "labels";
 type ContentMenuProps = { menu: Menus };
 
 const ContentMenu = ({ menu }: ContentMenuProps) => {
-  const { archivedTasks } = useArchiveTasks();
-
   switch (menu) {
     case "archive-items":
-      return <ArchivedItems archivedTasks={archivedTasks} />;
+      return <ArchivedItems />;
     case "archive-list":
       return <h1>Arsip list</h1>;
     case "labels":

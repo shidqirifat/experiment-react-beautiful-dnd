@@ -1,59 +1,70 @@
-import { ActionDelete } from "@/components/detail/delete";
-import { TaskCard } from "@/components/task";
 import useArchiveTasks from "@/hooks/useArchiveTasks";
-import { Task } from "@/types/task";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Input } from "@mantine/core";
+import cx from "clsx";
+import { Item } from ".";
 
-type ArchivedItemsProps = { archivedTasks: Array<Task> };
-type ItemProps = { task: Task };
-type ActionProps = { children: string; onClick?: () => void };
+type SearchArchiveProps = {
+  keyword: string;
+  setKeyword: (value: string) => void;
+};
 
-const Dot = () => <>&#8226;</>;
-
-const Action = ({ children, onClick }: ActionProps) => {
+const SearchArchive = ({ keyword, setKeyword }: SearchArchiveProps) => {
   return (
-    <button
-      onClick={onClick}
-      className="underline underline-offset-2 text-sm font-normal"
-    >
-      {children}
-    </button>
+    <Input
+      value={keyword}
+      onChange={(e) => setKeyword(e.target.value)}
+      placeholder="Search archive item"
+      leftSection={<FontAwesomeIcon icon={faMagnifyingGlass} />}
+    />
   );
 };
 
-const Item = ({ task }: ItemProps) => {
-  const { toggleArchive } = useArchiveTasks();
+type EmptyProps = { search?: boolean };
 
+const Empty = ({ search }: EmptyProps) => {
   return (
-    <div>
-      <div className="border border-slate-200 shadow-lg rounded-lg">
-        <TaskCard task={task} />
-      </div>
-      <div className="flex items-center gap-1 px-5">
-        <Action onClick={() => toggleArchive(task.id)}>Send to board</Action>
-        <Dot />
-        <ActionDelete id={task.id} triggerEl={<Action>Delete</Action>} />
-      </div>
+    <div
+      className={cx("grid place-content-center h-96", {
+        "space-y-2": search,
+        "space-y-6": !search,
+      })}
+    >
+      <img
+        src={search ? "/not-found.png" : "/empty.png"}
+        alt={search ? "Not Found" : "Empty"}
+        width={search ? 280 : 250}
+      />
+      <h3 className="text-slate-600 text-lg font-medium text-center">
+        {search ? "No result" : "No archive item"}
+      </h3>
     </div>
   );
 };
 
-export function ArchivedItems({ archivedTasks }: ArchivedItemsProps) {
-  if (archivedTasks.length === 0) {
+export function ArchivedItems() {
+  const { initialArchivedTasks, archivedTasks, keyword, setKeyword } =
+    useArchiveTasks();
+
+  if (initialArchivedTasks.length === 0) return <Empty />;
+  if (keyword && archivedTasks.length === 0) {
     return (
-      <div className="grid place-content-center h-96">
-        <img src="/empty.png" alt="Empty Archive" />
-        <h3 className="text-slate-600 text-lg font-medium text-center">
-          No archive item
-        </h3>
+      <div>
+        <SearchArchive keyword={keyword} setKeyword={setKeyword} />
+        <Empty search />
       </div>
     );
   }
 
   return (
-    <div className="space-y-5">
-      {archivedTasks.map((task) => (
-        <Item key={task.id} task={task} />
-      ))}
+    <div>
+      <SearchArchive keyword={keyword} setKeyword={setKeyword} />
+      <div className="space-y-5 mt-4">
+        {archivedTasks.map((task) => (
+          <Item key={task.id} task={task} />
+        ))}
+      </div>
     </div>
   );
 }

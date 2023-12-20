@@ -1,12 +1,14 @@
 import { TASKS } from "@/datas/task";
-import { useLocalStorage } from "@mantine/hooks";
-import { useCallback, useMemo } from "react";
+import { useDebouncedValue, useLocalStorage } from "@mantine/hooks";
+import { useCallback, useMemo, useState } from "react";
 
 export default function useArchiveTasks() {
   const [tasks, setTasks] = useLocalStorage({
     key: "tasks",
     defaultValue: TASKS,
   });
+  const [keyword, setKeyword] = useState("");
+  const [debouncedKeyword] = useDebouncedValue(keyword, 300);
 
   const toggleArchive = useCallback(
     (id: string) => {
@@ -19,10 +21,24 @@ export default function useArchiveTasks() {
     [tasks]
   );
 
-  const archivedTasks = useMemo(
+  const initialArchivedTasks = useMemo(
     () => tasks.filter((task) => task.archived),
     [tasks]
   );
 
-  return { toggleArchive, archivedTasks };
+  const archivedTasks = useMemo(
+    () =>
+      initialArchivedTasks.filter((task) =>
+        task.title.toLowerCase().includes(debouncedKeyword.toLowerCase())
+      ),
+    [initialArchivedTasks, debouncedKeyword]
+  );
+
+  return {
+    keyword,
+    initialArchivedTasks,
+    archivedTasks,
+    setKeyword,
+    toggleArchive,
+  };
 }
