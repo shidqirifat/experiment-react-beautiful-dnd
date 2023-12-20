@@ -8,28 +8,34 @@ import {
 import usePopover from "@/hooks/usePopover";
 import useTasks from "@/hooks/useTasks";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { ReactNode } from "react";
+import cx from "clsx";
 
-type ActionDeleteProps = { id: string };
+type ActionDeleteProps = { id: string; triggerEl?: ReactNode };
 
-export function ActionDelete({ id }: ActionDeleteProps) {
+export function ActionDelete({ id, triggerEl }: ActionDeleteProps) {
   const { onDeleteTask } = useTasks();
   const { open, toggleOpen, onClose } = usePopover();
 
   return (
     <Popover open={open} onOpenChange={toggleOpen}>
-      <PopoverTrigger className="w-full">
-        <ButtonAction
-          onClick={(e) => {
-            e.preventDefault();
-            toggleOpen(true);
-          }}
-          icon={faMinus}
-          variant="solid"
-          color="danger"
-          className="w-full"
-        >
-          Delete
-        </ButtonAction>
+      <PopoverTrigger className={cx({ "w-full": !triggerEl })}>
+        {triggerEl ? (
+          triggerEl
+        ) : (
+          <ButtonAction
+            onClick={(e) => {
+              e.preventDefault();
+              toggleOpen(true);
+            }}
+            icon={faMinus}
+            variant="solid"
+            color="danger"
+            className="w-full"
+          >
+            Delete
+          </ButtonAction>
+        )}
       </PopoverTrigger>
       <PopoverContent className="w-80" align="end">
         <PopoverHeader onClose={onClose}>Delete this card?</PopoverHeader>
