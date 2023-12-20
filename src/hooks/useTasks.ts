@@ -59,14 +59,14 @@ export default function useTasks() {
     [tasks]
   );
 
-  const tasksActive = useMemo(
+  const activeTasks = useMemo(
     () => tasks.filter((task) => !task.archived),
     [tasks]
   );
 
   return {
     tasks,
-    tasksActive,
+    activeTasks,
     onReorder: handleReorder,
     updateTask,
     onNewTask: handleNewTask,

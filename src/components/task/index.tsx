@@ -5,3 +5,4 @@ export * from "./CheckTodos";
 export * from "./TaskCard";
 export * from "./ListCardTask";
 export * from "./NewTask";
+export * from "./Archived";

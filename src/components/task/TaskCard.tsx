@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Labels, CheckTodos, Date, Link } from ".";
+import { Labels, CheckTodos, Date, Link, Archived } from ".";
 import { Task } from "@/types/task";
 import { Link as RouterLink } from "react-router-dom";
 import { faIndent } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +16,7 @@ export function TaskCard({ task }: TaskCardProps) {
         {task.description && <FontAwesomeIcon icon={faIndent} />}
         <Link total={task.links?.length} />
         <CheckTodos todos={task.todos} />
+        {task.archived && <Archived />}
       </div>
     </RouterLink>
   );

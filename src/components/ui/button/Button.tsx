@@ -39,7 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           "transition py-[6px] px-3 text-sm font-semibold rounded-sm",
           {
             "bg-slate-200 hover:bg-slate-300": variant === "default",
-            "hover:bg-slate-300": variant === "subtle",
+            "hover:bg-slate-200": variant === "subtle",
             "bg-blue-600 hover:bg-blue-700 text-white":
               variant === "solid" && color === "primary",
             "bg-red-600 hover:bg-red-700 text-white":

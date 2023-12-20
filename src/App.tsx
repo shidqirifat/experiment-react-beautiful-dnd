@@ -1,12 +1,13 @@
 import { TaskModal } from "./components/detail";
 import { ListCardTask } from "./components/task";
+import { Layout } from "./layouts";
 
 function App() {
   return (
-    <div className="m-4">
+    <Layout>
       <TaskModal />
       <ListCardTask />
-    </div>
+    </Layout>
   );
 }
 

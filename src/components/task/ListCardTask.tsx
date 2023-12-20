@@ -31,7 +31,7 @@ const ListTask = React.memo(function QuoteList({ tasks }: ListTaskProps) {
 });
 
 export const ListCardTask = () => {
-  const { tasksActive, onReorder } = useTasks();
+  const { activeTasks, onReorder } = useTasks();
 
   return (
     <div className="bg-gray-200 px-2 pt-4 pb-1 rounded-lg">
@@ -49,7 +49,7 @@ export const ListCardTask = () => {
               {...provided.droppableProps}
               className="space-y-2"
             >
-              <ListTask tasks={tasksActive} />
+              <ListTask tasks={activeTasks} />
               {provided.placeholder}
             </div>
           )}

@@ -1,6 +1,6 @@
 import { TASKS } from "@/datas/task";
 import { useLocalStorage } from "@mantine/hooks";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 export default function useArchiveTasks() {
   const [tasks, setTasks] = useLocalStorage({
@@ -19,5 +19,10 @@ export default function useArchiveTasks() {
     [tasks]
   );
 
-  return { toggleArchive };
+  const archivedTasks = useMemo(
+    () => tasks.filter((task) => task.archived),
+    [tasks]
+  );
+
+  return { toggleArchive, archivedTasks };
 }
