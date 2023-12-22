@@ -4,7 +4,7 @@ import { useLocalStorage } from "@mantine/hooks";
 const initialSort: Sort = { sortBy: "created-at", sortType: "asc" };
 
 export default function useSort() {
-  const [sort, setSort] = useLocalStorage<Sort>({
+  const [sort, setSort] = useLocalStorage<Sort | null>({
     key: "sort",
     defaultValue: initialSort,
   });
@@ -13,5 +13,5 @@ export default function useSort() {
     setSort({ sortBy, sortType });
   };
 
-  return { sort, onSort: handleSort };
+  return { sort, onSort: handleSort, setSort };
 }
