@@ -56,6 +56,12 @@ export function ActionMore() {
     setActiveAction(null);
   };
 
+  const handleMoveAllToArchive = () => {
+    moveAllToArchive();
+    toggleOpen(false);
+    setActiveAction(null);
+  };
+
   return (
     <Popover open={open} onOpenChange={toggleOpen}>
       <PopoverTrigger>
@@ -91,7 +97,7 @@ export function ActionMore() {
             <>
               <Item onClick={() => setActiveAction("sort-by")}>Sort by...</Item>
               <Border />
-              <Item onClick={moveAllToArchive}>
+              <Item onClick={handleMoveAllToArchive}>
                 Archive all cards in this list
               </Item>
               <Item>Archive this list</Item>

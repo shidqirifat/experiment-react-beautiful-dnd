@@ -60,7 +60,7 @@ export const ListCardTask = () => {
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
-              className="space-y-2"
+              className="space-y-2 overflow-auto max-h-[calc(100vh-300px)]"
             >
               <ListTask tasks={activeTasks} />
               {provided.placeholder}

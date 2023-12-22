@@ -60,7 +60,7 @@ export function ArchivedItems() {
   return (
     <div>
       <SearchArchive keyword={keyword} setKeyword={setKeyword} />
-      <div className="space-y-5 mt-4">
+      <div className="space-y-5 mt-4 overflow-auto max-h-[calc(100vh-140px)]">
         {archivedTasks.map((task) => (
           <Item key={task.id} task={task} />
         ))}
