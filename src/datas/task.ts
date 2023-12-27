@@ -27,7 +27,11 @@ const TASKS: Array<Task> = [
         is_done: false,
       },
     ],
-    due_date: { date: "2023-12-04T05:03:03Z", is_done: true },
+    due_date: {
+      start_date: "2023-12-02T05:03:03Z",
+      end_date: "2023-12-04T05:03:03Z",
+      is_done: true,
+    },
     archived: false,
   },
   {
@@ -78,7 +82,11 @@ const TASKS: Array<Task> = [
         updated_at: "2023-12-13T07:03:03Z",
       },
     ],
-    due_date: { date: "2023-12-19T05:03:03Z", is_done: true },
+    due_date: {
+      start_date: "2023-12-14T05:03:03Z",
+      end_date: "2023-12-19T05:03:03Z",
+      is_done: true,
+    },
     archived: false,
   },
   {
@@ -110,7 +118,11 @@ const TASKS: Array<Task> = [
         is_done: false,
       },
     ],
-    due_date: { date: "2023-12-07T05:03:03Z", is_done: false },
+    due_date: {
+      start_date: "2023-12-03T05:03:03Z",
+      end_date: "2023-12-07T05:03:03Z",
+      is_done: false,
+    },
     archived: false,
   },
   {
@@ -133,7 +145,11 @@ const TASKS: Array<Task> = [
         updated_at: "2023-12-13T05:03:03Z",
       },
     ],
-    due_date: { date: "2023-12-13T05:03:03Z", is_done: false },
+    due_date: {
+      start_date: "2023-12-08T05:03:03Z",
+      end_date: "2023-12-13T05:03:03Z",
+      is_done: false,
+    },
     archived: false,
   },
 ];

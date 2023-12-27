@@ -9,8 +9,8 @@ type DateProps = { dueDate: DueDate | undefined };
 export const Date = ({ dueDate }: DateProps) => {
   if (!dueDate) return null;
 
-  const { date, is_done } = dueDate;
-  const dayToNow = getDayToNow(date);
+  const { end_date: endDate, is_done } = dueDate;
+  const dayToNow = getDayToNow(endDate);
   const isPast = dayToNow < 0;
 
   return (
@@ -26,7 +26,7 @@ export const Date = ({ dueDate }: DateProps) => {
       )}
     >
       <FontAwesomeIcon icon={faClock} size="sm" />
-      <h4 className="text-xs">{formatDate(date, "MMM D")}</h4>
+      <h4 className="text-xs">{formatDate(endDate, "MMM D")}</h4>
     </button>
   );
 };

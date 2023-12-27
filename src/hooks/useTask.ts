@@ -92,6 +92,35 @@ export default function useTask() {
     });
   }, []);
 
+  const handleSaveDueDate = useCallback(
+    (startDate: string, endDate: string) => {
+      setTask((prev) => {
+        if (!prev) return null;
+
+        return {
+          ...prev,
+          due_date: {
+            ...(prev.due_date as DueDate),
+            start_date: startDate,
+            end_date: endDate,
+          },
+        };
+      });
+    },
+    []
+  );
+
+  const handleRemoveDueDate = useCallback(() => {
+    setTask((prev) => {
+      if (!prev) return null;
+
+      const cloneTask = { ...prev };
+      delete cloneTask.due_date;
+
+      return cloneTask;
+    });
+  }, []);
+
   useEffect(() => {
     const currentTask = tasks.find((task) => task.id === taskId);
     if (currentTask) setTask(currentTask);
@@ -109,5 +138,7 @@ export default function useTask() {
     onAddLink: handleAddLink,
     onEditLink: handleEditLink,
     onRemoveLink: handleRemoveLink,
+    onSaveDueDate: handleSaveDueDate,
+    onRemoveDueDate: handleRemoveDueDate,
   };
 }

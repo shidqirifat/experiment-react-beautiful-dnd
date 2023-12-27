@@ -48,6 +48,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {
             "grid grid-cols-[20px_1fr] gap-2": leftIcon,
           },
+          {
+            "disabled:opacity-30": props.disabled,
+          },
           className
         )}
       >

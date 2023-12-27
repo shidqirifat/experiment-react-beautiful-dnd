@@ -12,7 +12,8 @@ type Link = {
 };
 
 type DueDate = {
-  date: string;
+  start_date: string;
+  end_date: string;
   is_done: boolean;
 };
 

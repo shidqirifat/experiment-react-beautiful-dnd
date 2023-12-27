@@ -14,7 +14,7 @@ type SubdetailSectionProps = {
 };
 type LabelsSectionProps = { labels: Array<Label> };
 type DateProps = {
-  date: string;
+  endDate: string;
   completed: boolean;
   onToggleComplete: (value: boolean) => void;
 };
@@ -43,7 +43,7 @@ const DateCompleted = () => {
   );
 };
 
-const Date = ({ date, completed, onToggleComplete }: DateProps) => {
+const Date = ({ endDate, completed, onToggleComplete }: DateProps) => {
   return (
     <div>
       <Subtitle>Due date</Subtitle>
@@ -51,7 +51,7 @@ const Date = ({ date, completed, onToggleComplete }: DateProps) => {
         <Checkbox checked={completed} onCheckedChange={onToggleComplete} />
         <button className="py-2 px-3 bg-slate-200 hover:bg-slate-300 transition rounded-sm flex gap-2 items-center">
           <h4 className="text-sm font-medium">
-            {formatDate(date, "MMM D")} at {formatDate(date, "h:mm A")}
+            {formatDate(endDate, "MMM D")} at {formatDate(endDate, "h:mm A")}
           </h4>
           {completed && <DateCompleted />}
           <FontAwesomeIcon icon={faChevronDown} size="xs" />
@@ -73,7 +73,7 @@ export function SubdetailSection({
           {labels && <LabelsSection labels={labels} />}
           {dueDate && (
             <Date
-              date={dueDate.date}
+              endDate={dueDate.end_date}
               completed={dueDate.is_done}
               onToggleComplete={onToggleComplete}
             />
