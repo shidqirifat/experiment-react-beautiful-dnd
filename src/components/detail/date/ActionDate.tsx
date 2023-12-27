@@ -8,50 +8,33 @@ import {
 import { DatePicker, TimeInput } from "@mantine/dates";
 import usePopover from "@/hooks/usePopover";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { ActionIcon } from "@mantine/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { formatDate, getDateNextHour, getDueDateTime } from "@/utils/time";
 import { DueDate } from "@/types/task";
-
-const getInitialDate = (date: string | undefined) => {
-  if (date) return new Date(date);
-  return getDateNextHour(8);
-};
-
-const getInitialTime = (date: string | undefined) => {
-  if (date) return formatDate(date, "HH:mm");
-  return formatDate(getDateNextHour(8).toISOString(), "HH:mm");
-};
+import { useDueDate } from "@/hooks/useDueDate";
 
 type ActionDateProps = {
-  dates: DueDate | undefined;
+  dueDate: DueDate | undefined;
   onSave: (startDate: string, endDate: string) => void;
   onRemove: () => void;
 };
 
-export function ActionDate({ dates, onSave, onRemove }: ActionDateProps) {
-  const initialDates = useMemo<[Date, Date]>(() => {
-    return [getInitialDate(dates?.start_date), getInitialDate(dates?.end_date)];
-  }, [dates]);
-
-  const initialTime = useMemo(() => getInitialTime(dates?.end_date), [dates]);
-
-  const [date, setDate] = useState<[Date | null, Date | null]>(initialDates);
-  const [time, setTime] = useState(initialTime);
+export function ActionDate({ dueDate, onSave, onRemove }: ActionDateProps) {
+  const {
+    dates,
+    time,
+    disabledSaveButton,
+    setDates,
+    setTime,
+    resetInput,
+    generateDateSave,
+  } = useDueDate(dueDate);
   const { open, toggleOpen, onClose } = usePopover();
   const ref = useRef<HTMLInputElement>(null);
 
-  const resetInput = () => {
-    setDate(initialDates);
-    setTime(initialTime);
-  };
-
   const handleSave = () => {
-    const startDate = date[0]?.toISOString() as string;
-    const endDate = getDueDateTime(date[1]?.toISOString() as string, time);
-
-    onSave(startDate, endDate);
+    onSave(...generateDateSave());
     onClose();
   };
 
@@ -85,8 +68,8 @@ export function ActionDate({ dates, onSave, onRemove }: ActionDateProps) {
           <DatePicker
             type="range"
             allowSingleDateInRange
-            value={date}
-            onChange={setDate}
+            value={dates}
+            onChange={setDates}
           />
           <TimeInput
             value={time}
@@ -101,7 +84,7 @@ export function ActionDate({ dates, onSave, onRemove }: ActionDateProps) {
               type="submit"
               variant="solid"
               onClick={handleSave}
-              disabled={date.some((value) => !value)}
+              disabled={disabledSaveButton}
             >
               Save
             </Button>
