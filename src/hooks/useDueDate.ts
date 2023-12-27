@@ -1,6 +1,6 @@
 import { DueDate } from "@/types/task";
 import { formatDate, getDateNextHour, getDueDateTime } from "@/utils/time";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const getInitialDate = (date: string | undefined) => {
   if (date) return new Date(date);
@@ -44,6 +44,8 @@ export function useDueDate(dueDate: DueDate | undefined) {
     () => dates.some((value) => !value) || !time,
     [dates, time]
   );
+
+  useEffect(() => resetInput(), [resetInput]);
 
   return {
     dates,

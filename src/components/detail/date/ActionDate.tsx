@@ -13,14 +13,32 @@ import { ActionIcon } from "@mantine/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DueDate } from "@/types/task";
 import { useDueDate } from "@/hooks/useDueDate";
+import { formatDate } from "@/utils/time";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 type ActionDateProps = {
   dueDate: DueDate | undefined;
+  withIcon?: boolean;
+  completed?: boolean;
   onSave: (startDate: string, endDate: string) => void;
   onRemove: () => void;
 };
 
-export function ActionDate({ dueDate, onSave, onRemove }: ActionDateProps) {
+const DateCompleted = () => {
+  return (
+    <button className="bg-green-700 py-[1px] px-1 text-xs font-semibold text-white rounded-sm">
+      Complete
+    </button>
+  );
+};
+
+export function ActionDate({
+  dueDate,
+  withIcon,
+  completed,
+  onSave,
+  onRemove,
+}: ActionDateProps) {
   const {
     dates,
     time,
@@ -60,7 +78,18 @@ export function ActionDate({ dueDate, onSave, onRemove }: ActionDateProps) {
   return (
     <Popover open={open} onOpenChange={toggleOpen}>
       <PopoverTrigger className="w-full">
-        <ButtonAction icon={faClock}>Date</ButtonAction>
+        {!withIcon && dueDate ? (
+          <button className="py-2 px-3 bg-slate-200 hover:bg-slate-300 transition rounded-sm flex gap-2 items-center">
+            <h4 className="text-sm font-medium">
+              {formatDate(dueDate?.end_date, "MMM D")} at{" "}
+              {formatDate(dueDate?.end_date, "h:mm A")}
+            </h4>
+            {completed && <DateCompleted />}
+            <FontAwesomeIcon icon={faChevronDown} size="xs" />
+          </button>
+        ) : (
+          <ButtonAction icon={faClock}>Date</ButtonAction>
+        )}
       </PopoverTrigger>
       <PopoverContent align="end">
         <div className="space-y-4">

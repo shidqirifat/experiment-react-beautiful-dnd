@@ -89,6 +89,8 @@ export function TaskModal() {
               labels={task.labels}
               dueDate={task.due_date}
               onToggleComplete={onToggleComplete}
+              onSaveDueDate={onSaveDueDate}
+              onRemoveDueDate={onRemoveDueDate}
             />
             <DescriptionSection onSave={onSaveDescription}>
               {task.description as string}
@@ -107,6 +109,7 @@ export function TaskModal() {
                 <ButtonAction icon={faTags}>Labels</ButtonAction>
                 <ButtonAction icon={faTableList}>Todos</ButtonAction>
                 <ActionDate
+                  withIcon
                   dueDate={task.due_date}
                   onSave={onSaveDueDate}
                   onRemove={onRemoveDueDate}
