@@ -1,5 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
+import { Todo } from "./task";
 
 const todoSchema = z.object({
   title: z.string(),
@@ -17,6 +18,41 @@ type TodoModalProps = {
   onAdd: (form: TodoForm) => void;
 };
 
+type CheckItemProps = {
+  name: string;
+  isDone: boolean;
+  onChange: () => void;
+  onDelete: () => void;
+};
+
+type TitleTodoProps = {
+  children: string;
+  isEdit: boolean;
+  toggleEdit: () => void;
+  onSave: (title: string) => void;
+};
+
+interface TodosSectionProps extends Todo {
+  onChangeTitle: (id: string, title: string) => void;
+  onDeleteTodo: (id: string) => void;
+  onAddCheckItem: (toodId: string, name: string) => void;
+  onChangeCheckItem: (toodId: string, checkId: string) => void;
+  onDeleteCheckItem: (toodId: string, checkId: string) => void;
+}
+
+type ProgressProps = {
+  percentDone: number;
+  hideDone: boolean;
+};
+
 export { todoSchema };
 
-export type { TodoForm, FormTodoProps, TodoModalProps };
+export type {
+  TodoForm,
+  FormTodoProps,
+  TodoModalProps,
+  CheckItemProps,
+  TitleTodoProps,
+  TodosSectionProps,
+  ProgressProps,
+};
