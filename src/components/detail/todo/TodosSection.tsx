@@ -6,16 +6,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Todo } from "@/types/task";
 import { ActionDelete } from ".";
 import { Progress } from "@/components/ui/progress";
-import { useMemo, useState } from "react";
+import { KeyboardEvent, useMemo, useState } from "react";
 import cx from "clsx";
 import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 import { useClickOutside } from "@mantine/hooks";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/utils";
+import { Textarea } from "@/components/ui/textarea";
 
 interface TodosSectionProps extends Todo {
   onChangeTitle: (id: string, title: string) => void;
   onDeleteTodo: (id: string) => void;
+  onAddCheckItem: (toodId: string, name: string) => void;
   onChangeCheckItem: (toodId: string, checkId: string) => void;
   onDeleteCheckItem: (toodId: string, checkId: string) => void;
 }
@@ -100,10 +102,13 @@ export function TodosSection({
   checklist,
   onChangeTitle,
   onDeleteTodo,
+  onAddCheckItem,
   onChangeCheckItem,
   onDeleteCheckItem,
 }: TodosSectionProps) {
   const [isEdit, setEdit] = useState(false);
+  const [isAdd, setAdd] = useState(false);
+  const [nameCheckItem, setNameCheckItem] = useState("");
   const [hideDone, setHideDone] = useState(false);
 
   const toggleEdit = () => setEdit(!isEdit);
@@ -114,6 +119,22 @@ export function TodosSection({
       return prev;
     }, 0);
   }, [checklist]);
+
+  const handleAddCheckItem = () => {
+    onAddCheckItem(id, nameCheckItem);
+    setNameCheckItem("");
+  };
+
+  const handleEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.code === "Enter") {
+      e.preventDefault();
+      handleAddCheckItem();
+    }
+  };
+
+  const ref = useClickOutside(() => {
+    setAdd(false);
+  });
 
   const percentDone = Math.floor((totalDone / checklist.length) * 100);
 
@@ -180,7 +201,32 @@ export function TodosSection({
             />
           );
         })}
-        <Button className="mt-2">Add an item</Button>
+
+        {isAdd ? (
+          <form onSubmit={handleAddCheckItem} className="mt-1 ml-7 space-y-2">
+            <Textarea
+              ref={ref}
+              autoFocus
+              className="!min-h-[20px] p-2 rounded-sm text-sm"
+              placeholder="Add an item"
+              value={nameCheckItem}
+              onChange={(e) => setNameCheckItem(e.currentTarget.value)}
+              onKeyDown={handleEnter}
+            />
+            <div className="flex gap-2">
+              <Button type="submit" variant="solid">
+                Add
+              </Button>
+              <Button onClick={() => setAdd(false)} variant="subtle">
+                Cancel
+              </Button>
+            </div>
+          </form>
+        ) : (
+          <Button onClick={() => setAdd(true)} className="mt-2">
+            Add an item
+          </Button>
+        )}
       </div>
     </Section>
   );

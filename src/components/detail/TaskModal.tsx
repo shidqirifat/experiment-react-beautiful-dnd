@@ -77,6 +77,7 @@ export function TaskModal() {
     onAddTodo,
     onChangeTitleTodo,
     onDeleteTodo,
+    onAddCheckItem,
     onChangeCheckItem,
     onDeleteCheckItem,
   } = useTask();
@@ -113,6 +114,7 @@ export function TaskModal() {
                   {...todo}
                   onChangeTitle={onChangeTitleTodo}
                   onDeleteTodo={onDeleteTodo}
+                  onAddCheckItem={onAddCheckItem}
                   onChangeCheckItem={onChangeCheckItem}
                   onDeleteCheckItem={onDeleteCheckItem}
                 />

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useTasks from "./useTasks";
 import { useCallback, useEffect, useState } from "react";
-import { DueDate, Link, Task, Todo } from "@/types/task";
+import { CheckItem, DueDate, Link, Task, Todo } from "@/types/task";
 import { LinkForm } from "@/types/link";
 import { TodoForm } from "@/types/todo";
 
@@ -182,6 +182,28 @@ export default function useTask() {
     []
   );
 
+  const handleAddCheckItem = useCallback((todoId: string, name: string) => {
+    const newCheckItem: CheckItem = {
+      id: (+new Date()).toString(),
+      name,
+      is_done: false,
+    };
+
+    setTask((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        todos: prev.todos?.map((todo) => {
+          if (todo.id === todoId) {
+            return { ...todo, checklist: [...todo.checklist, newCheckItem] };
+          }
+
+          return todo;
+        }),
+      };
+    });
+  }, []);
+
   const handleDeleteCheckItem = useCallback(
     (todoId: string, checkId: string) => {
       setTask((prev) => {
@@ -228,6 +250,7 @@ export default function useTask() {
     onAddTodo: handleAddTodo,
     onChangeTitleTodo: handleChangeTitleTodo,
     onDeleteTodo: handleDeleteTodo,
+    onAddCheckItem: handleAddCheckItem,
     onChangeCheckItem: handleChangeCheckItem,
     onDeleteCheckItem: handleDeleteCheckItem,
   };
