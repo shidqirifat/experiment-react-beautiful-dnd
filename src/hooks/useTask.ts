@@ -3,7 +3,7 @@ import useTasks from "./useTasks";
 import { useCallback, useEffect, useState } from "react";
 import { CheckItem, DueDate, Link, Task, Todo } from "@/types/task";
 import { LinkForm } from "@/types/link";
-import { TodoForm } from "@/types/todo";
+import { TodoForm, onChangeNameCheckItemArgs } from "@/types/todo";
 
 type TParams = { taskId?: string };
 
@@ -182,6 +182,31 @@ export default function useTask() {
     []
   );
 
+  const handleChangeNameCheckItem = useCallback(
+    ({ todoId, checkId, name }: onChangeNameCheckItemArgs) => {
+      setTask((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          todos: prev?.todos?.map((todo) => {
+            if (todo.id === todoId) {
+              const newChecklist = [...todo.checklist];
+              const index = newChecklist.findIndex(
+                (check) => check.id === checkId
+              );
+              newChecklist[index].name = name;
+
+              return { ...todo, checklist: newChecklist };
+            }
+
+            return todo;
+          }),
+        };
+      });
+    },
+    []
+  );
+
   const handleAddCheckItem = useCallback((todoId: string, name: string) => {
     const newCheckItem: CheckItem = {
       id: (+new Date()).toString(),
@@ -252,6 +277,7 @@ export default function useTask() {
     onDeleteTodo: handleDeleteTodo,
     onAddCheckItem: handleAddCheckItem,
     onChangeCheckItem: handleChangeCheckItem,
+    onChangeNameCheckItem: handleChangeNameCheckItem,
     onDeleteCheckItem: handleDeleteCheckItem,
   };
 }

@@ -15,6 +15,7 @@ export function TodosSection({
   onDeleteTodo,
   onAddCheckItem,
   onChangeCheckItem,
+  onChangeNameCheckItem,
   onDeleteCheckItem,
 }: TodosSectionProps) {
   const [isEdit, setEdit] = useState(false);
@@ -80,7 +81,10 @@ export function TodosSection({
               key={item.id}
               name={item.name}
               isDone={item.is_done}
-              onChange={() => onChangeCheckItem(id, item.id)}
+              onCheck={() => onChangeCheckItem(id, item.id)}
+              onChange={(name) =>
+                onChangeNameCheckItem({ todoId: id, checkId: item.id, name })
+              }
               onDelete={() => onDeleteCheckItem(id, item.id)}
             />
           );
@@ -88,8 +92,7 @@ export function TodosSection({
 
         {isAdd ? (
           <FormCheckItem
-            id={id}
-            onAdd={onAddCheckItem}
+            onSubmit={(name) => onAddCheckItem(id, name)}
             onCancel={() => setAdd(false)}
           />
         ) : (

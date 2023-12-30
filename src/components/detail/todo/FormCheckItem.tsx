@@ -4,17 +4,21 @@ import { useClickOutside } from "@mantine/hooks";
 import { KeyboardEvent, useState } from "react";
 
 type FormCheckItemProps = {
-  id: string;
-  onAdd: (toodId: string, name: string) => void;
+  initialName?: string;
+  onSubmit: (name: string) => void;
   onCancel: () => void;
 };
 
-export function FormCheckItem({ id, onAdd, onCancel }: FormCheckItemProps) {
-  const [nameCheckItem, setNameCheckItem] = useState("");
+export function FormCheckItem({
+  initialName = "",
+  onSubmit,
+  onCancel,
+}: FormCheckItemProps) {
+  const [nameCheckItem, setNameCheckItem] = useState(initialName);
 
   const handleAddCheckItem = () => {
-    onAdd(id, nameCheckItem);
-    setNameCheckItem("");
+    onSubmit(nameCheckItem);
+    if (!initialName) setNameCheckItem("");
   };
 
   const handleEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {

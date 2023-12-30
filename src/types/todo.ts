@@ -21,7 +21,8 @@ type TodoModalProps = {
 type CheckItemProps = {
   name: string;
   isDone: boolean;
-  onChange: () => void;
+  onCheck: () => void;
+  onChange: (name: string) => void;
   onDelete: () => void;
 };
 
@@ -32,11 +33,14 @@ type TitleTodoProps = {
   onSave: (title: string) => void;
 };
 
+type onChangeNameCheckItemArgs = Record<"todoId" | "checkId" | "name", string>;
+
 interface TodosSectionProps extends Todo {
   onChangeTitle: (id: string, title: string) => void;
   onDeleteTodo: (id: string) => void;
   onAddCheckItem: (toodId: string, name: string) => void;
   onChangeCheckItem: (toodId: string, checkId: string) => void;
+  onChangeNameCheckItem: (args: onChangeNameCheckItemArgs) => void;
   onDeleteCheckItem: (toodId: string, checkId: string) => void;
 }
 
@@ -55,4 +59,5 @@ export type {
   TitleTodoProps,
   TodosSectionProps,
   ProgressProps,
+  onChangeNameCheckItemArgs,
 };

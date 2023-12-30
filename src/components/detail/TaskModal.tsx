@@ -79,6 +79,7 @@ export function TaskModal() {
     onDeleteTodo,
     onAddCheckItem,
     onChangeCheckItem,
+    onChangeNameCheckItem,
     onDeleteCheckItem,
   } = useTask();
   const { toggleArchive } = useArchiveTasks();
@@ -116,6 +117,7 @@ export function TaskModal() {
                   onDeleteTodo={onDeleteTodo}
                   onAddCheckItem={onAddCheckItem}
                   onChangeCheckItem={onChangeCheckItem}
+                  onChangeNameCheckItem={onChangeNameCheckItem}
                   onDeleteCheckItem={onDeleteCheckItem}
                 />
               ))}
