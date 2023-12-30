@@ -75,6 +75,7 @@ export function TaskModal() {
     onSaveDueDate,
     onRemoveDueDate,
     onAddTodo,
+    onChangeTitleTodo,
     onDeleteTodo,
     onChangeCheckItem,
     onDeleteCheckItem,
@@ -110,6 +111,7 @@ export function TaskModal() {
                 <TodosSection
                   key={todo.id}
                   {...todo}
+                  onChangeTitle={onChangeTitleTodo}
                   onDeleteTodo={onDeleteTodo}
                   onChangeCheckItem={onChangeCheckItem}
                   onDeleteCheckItem={onDeleteCheckItem}

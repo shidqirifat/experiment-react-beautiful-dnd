@@ -122,6 +122,22 @@ export default function useTask() {
     });
   }, []);
 
+  const handleChangeTitleTodo = useCallback((id: string, title: string) => {
+    setTask((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        todos: prev?.todos?.map((todo) => {
+          if (todo.id === id) {
+            return { ...todo, title };
+          }
+
+          return todo;
+        }),
+      };
+    });
+  }, []);
+
   const handleAddTodo = useCallback((form: TodoForm) => {
     const newTodo = { ...form, id: (+new Date()).toString(), checklist: [] };
 
@@ -210,6 +226,7 @@ export default function useTask() {
     onSaveDueDate: handleSaveDueDate,
     onRemoveDueDate: handleRemoveDueDate,
     onAddTodo: handleAddTodo,
+    onChangeTitleTodo: handleChangeTitleTodo,
     onDeleteTodo: handleDeleteTodo,
     onChangeCheckItem: handleChangeCheckItem,
     onDeleteCheckItem: handleDeleteCheckItem,

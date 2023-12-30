@@ -1,5 +1,5 @@
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
-import { Section, TitleSection } from "..";
+import { Section } from "..";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,8 +9,12 @@ import { Progress } from "@/components/ui/progress";
 import { useMemo, useState } from "react";
 import cx from "clsx";
 import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
+import { useClickOutside } from "@mantine/hooks";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/utils";
 
 interface TodosSectionProps extends Todo {
+  onChangeTitle: (id: string, title: string) => void;
   onDeleteTodo: (id: string) => void;
   onChangeCheckItem: (toodId: string, checkId: string) => void;
   onDeleteCheckItem: (toodId: string, checkId: string) => void;
@@ -48,15 +52,61 @@ const CheckItem = ({ name, isDone, onChange, onDelete }: CheckItemProps) => {
   );
 };
 
+type TitleTodoProps = {
+  children: string;
+  isEdit: boolean;
+  toggleEdit: () => void;
+  onSave: (title: string) => void;
+};
+
+const TitleTodo = ({
+  children,
+  isEdit,
+  toggleEdit,
+  onSave,
+}: TitleTodoProps) => {
+  const [title, setTitle] = useState(children);
+
+  const ref = useClickOutside(() => {
+    onSave(title);
+    toggleEdit();
+  });
+
+  if (!isEdit) {
+    return (
+      <h1
+        onClick={toggleEdit}
+        className="text-base font-semibold cursor-pointer"
+      >
+        {children}
+      </h1>
+    );
+  }
+
+  return (
+    <Input
+      ref={ref}
+      autoFocus
+      className="relative -left-2 text-base font-semibold pl-2 w-full"
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+    />
+  );
+};
+
 export function TodosSection({
   id,
   title,
   checklist,
+  onChangeTitle,
   onDeleteTodo,
   onChangeCheckItem,
   onDeleteCheckItem,
 }: TodosSectionProps) {
+  const [isEdit, setEdit] = useState(false);
   const [hideDone, setHideDone] = useState(false);
+
+  const toggleEdit = () => setEdit(!isEdit);
 
   const totalDone = useMemo(() => {
     return checklist.reduce((prev, check) => {
@@ -74,10 +124,22 @@ export function TodosSection({
 
   return (
     <Section className="!pb-4">
-      <TitleSection
-        icon={faSquareCheck}
-        label={title}
-        action={
+      <div className="flex justify-between items-center">
+        <div
+          className={cn("flex gap-3 items-center", {
+            "w-full": isEdit,
+          })}
+        >
+          <FontAwesomeIcon icon={faSquareCheck} />
+          <TitleTodo
+            isEdit={isEdit}
+            toggleEdit={toggleEdit}
+            onSave={(newTitle) => onChangeTitle(id, newTitle)}
+          >
+            {title}
+          </TitleTodo>
+        </div>
+        {!isEdit && (
           <div className="flex gap-2">
             {totalDone > 0 && (
               <Button onClick={() => setHideDone(!hideDone)}>
@@ -89,8 +151,8 @@ export function TodosSection({
               onDeleteTodo={() => onDeleteTodo(id)}
             />
           </div>
-        }
-      />
+        )}
+      </div>
       <div className="mt-2 grid grid-cols-[18px_1fr] items-center gap-2">
         <h4 className="text-slate-800 font-normal text-[9px]">
           {percentDone}%
