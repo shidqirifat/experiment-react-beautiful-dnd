@@ -8,23 +8,55 @@ const TASKS: Array<Task> = [
     todos: [
       {
         id: "1",
-        name: "Todo 1",
-        is_done: true,
+        title: "Progress 1",
+        checklist: [
+          {
+            id: "1",
+            name: "Todo 1",
+            is_done: true,
+          },
+          {
+            id: "2",
+            name: "Todo 2",
+            is_done: true,
+          },
+          {
+            id: "3",
+            name: "Todo 3",
+            is_done: true,
+          },
+          {
+            id: "4",
+            name: "Todo 4",
+            is_done: false,
+          },
+        ],
       },
       {
         id: "2",
-        name: "Todo 2",
-        is_done: false,
-      },
-      {
-        id: "3",
-        name: "Todo 3",
-        is_done: false,
-      },
-      {
-        id: "4",
-        name: "Todo 4",
-        is_done: false,
+        title: "Progress 2",
+        checklist: [
+          {
+            id: "5",
+            name: "Todo 5",
+            is_done: true,
+          },
+          {
+            id: "6",
+            name: "Todo 6",
+            is_done: false,
+          },
+          {
+            id: "7",
+            name: "Todo 7",
+            is_done: true,
+          },
+          {
+            id: "8",
+            name: "Todo 8",
+            is_done: true,
+          },
+        ],
       },
     ],
     due_date: {
@@ -56,14 +88,20 @@ const TASKS: Array<Task> = [
     ],
     todos: [
       {
-        id: "1",
-        name: "Todo 1",
-        is_done: false,
-      },
-      {
-        id: "2",
-        name: "Todo 2",
-        is_done: false,
+        id: "3",
+        title: "Checklist",
+        checklist: [
+          {
+            id: "1",
+            name: "Todo 1",
+            is_done: true,
+          },
+          {
+            id: "2",
+            name: "Todo 2",
+            is_done: false,
+          },
+        ],
       },
     ],
     description:
@@ -101,23 +139,6 @@ const TASKS: Array<Task> = [
     ],
     description:
       "Since Tailwind is a PostCSS plugin, there’s nothing stopping you from using it with Sass, Less, Stylus, or other preprocessors, just like you can with other PostCSS plugins like Autoprefixer.",
-    todos: [
-      {
-        id: "1",
-        name: "Todo 1",
-        is_done: true,
-      },
-      {
-        id: "2",
-        name: "Todo 2",
-        is_done: true,
-      },
-      {
-        id: "3",
-        name: "Todo 3",
-        is_done: false,
-      },
-    ],
     due_date: {
       start_date: "2023-12-03T05:03:03Z",
       end_date: "2023-12-07T05:03:03Z",

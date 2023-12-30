@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRotateRight,
   faBoxesPacking,
-  faTableList,
   faTags,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
@@ -22,6 +21,7 @@ import { ActionDelete } from "./delete";
 import useArchiveTasks from "@/hooks/useArchiveTasks";
 import cx from "clsx";
 import { ActionDate } from "./date";
+import { ActionTodo, TodosSection } from "./todo";
 
 type LayoutProps = { children: ReactNode };
 type ModalProps = {
@@ -44,7 +44,7 @@ const ArchiveBackground = () => {
 const Modal = ({ children, archived, onClose }: ModalProps) => {
   return (
     <Shadow onClick={onClose}>
-      <div className="absolute z-10 top-12 left-[50%] translate-x-[-50%] w-[90vw] bg-slate-50 rounded-lg">
+      <div className="relative z-10 w-[90vw] bg-slate-50 rounded-lg">
         {archived && <ArchiveBackground />}
         <button
           onClick={onClose}
@@ -74,6 +74,10 @@ export function TaskModal() {
     onRemoveLink,
     onSaveDueDate,
     onRemoveDueDate,
+    onAddTodo,
+    onDeleteTodo,
+    onChangeCheckItem,
+    onDeleteCheckItem,
   } = useTask();
   const { toggleArchive } = useArchiveTasks();
 
@@ -101,13 +105,24 @@ export function TaskModal() {
               onEditLink={onEditLink}
               onRemoveLink={onRemoveLink}
             />
+            <div className="space-y-8">
+              {task.todos?.map((todo) => (
+                <TodosSection
+                  key={todo.id}
+                  {...todo}
+                  onDeleteTodo={onDeleteTodo}
+                  onChangeCheckItem={onChangeCheckItem}
+                  onDeleteCheckItem={onDeleteCheckItem}
+                />
+              ))}
+            </div>
           </div>
           <div>
             <div>
               <Subtitle>Add to card</Subtitle>
               <div className="space-y-2 mt-1">
                 <ButtonAction icon={faTags}>Labels</ButtonAction>
-                <ButtonAction icon={faTableList}>Todos</ButtonAction>
+                <ActionTodo onAdd={onAddTodo} />
                 <ActionDate
                   withIcon
                   dueDate={task.due_date}

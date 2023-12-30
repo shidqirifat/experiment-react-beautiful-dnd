@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode } from "react";
 import cx from "clsx";
 
-type SectionProps = { children: ReactNode };
+type SectionProps = { children: ReactNode; className?: string };
 type TitleSectionProps = {
   icon: IconProp;
   sizeIcon?: SizeProp;
@@ -13,8 +13,8 @@ type TitleSectionProps = {
 type ContentSectionProps = { className?: string; children: ReactNode };
 type SubtitleProps = SectionProps;
 
-export function Section({ children }: SectionProps) {
-  return <div className="pb-8">{children}</div>;
+export function Section({ children, className }: SectionProps) {
+  return <div className={cx("pb-8", className)}>{children}</div>;
 }
 
 export function TitleSection({

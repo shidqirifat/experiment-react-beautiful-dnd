@@ -17,10 +17,16 @@ type DueDate = {
   is_done: boolean;
 };
 
-type Todo = {
+type CheckItem = {
   id: string;
   name: string;
   is_done: boolean;
+};
+
+type Todo = {
+  id: string;
+  title: string;
+  checklist: Array<CheckItem>;
 };
 
 type Task = {
@@ -34,4 +40,4 @@ type Task = {
   archived: boolean;
 };
 
-export type { Label, Link, DueDate, Todo, Task };
+export type { Label, Link, DueDate, Todo, Task, CheckItem };

@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useTasks from "./useTasks";
 import { useCallback, useEffect, useState } from "react";
-import { DueDate, Link, Task } from "@/types/task";
+import { DueDate, Link, Task, Todo } from "@/types/task";
 import { LinkForm } from "@/types/link";
+import { TodoForm } from "@/types/todo";
 
 type TParams = { taskId?: string };
 
@@ -121,6 +122,74 @@ export default function useTask() {
     });
   }, []);
 
+  const handleAddTodo = useCallback((form: TodoForm) => {
+    const newTodo = { ...form, id: (+new Date()).toString(), checklist: [] };
+
+    setTask((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        todos: [...(prev.todos as Array<Todo>), newTodo],
+      };
+    });
+  }, []);
+
+  const handleDeleteTodo = useCallback((id: string) => {
+    setTask((prev) => {
+      if (!prev) return null;
+      return { ...prev, todos: prev.todos?.filter((todo) => todo.id !== id) };
+    });
+  }, []);
+
+  const handleChangeCheckItem = useCallback(
+    (todoId: string, checkId: string) => {
+      setTask((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          todos: prev?.todos?.map((todo) => {
+            if (todo.id === todoId) {
+              const newChecklist = [...todo.checklist];
+              const index = newChecklist.findIndex(
+                (check) => check.id === checkId
+              );
+              newChecklist[index].is_done = !newChecklist[index].is_done;
+
+              return { ...todo, checklist: newChecklist };
+            }
+
+            return todo;
+          }),
+        };
+      });
+    },
+    []
+  );
+
+  const handleDeleteCheckItem = useCallback(
+    (todoId: string, checkId: string) => {
+      setTask((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          todos: prev.todos?.map((todo) => {
+            if (todo.id === todoId) {
+              return {
+                ...todo,
+                checklist: todo.checklist.filter(
+                  (check) => check.id !== checkId
+                ),
+              };
+            }
+
+            return todo;
+          }),
+        };
+      });
+    },
+    []
+  );
+
   useEffect(() => {
     const currentTask = tasks.find((task) => task.id === taskId);
     if (currentTask) setTask(currentTask);
@@ -140,5 +209,9 @@ export default function useTask() {
     onRemoveLink: handleRemoveLink,
     onSaveDueDate: handleSaveDueDate,
     onRemoveDueDate: handleRemoveDueDate,
+    onAddTodo: handleAddTodo,
+    onDeleteTodo: handleDeleteTodo,
+    onChangeCheckItem: handleChangeCheckItem,
+    onDeleteCheckItem: handleDeleteCheckItem,
   };
 }

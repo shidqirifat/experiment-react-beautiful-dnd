@@ -17,9 +17,14 @@ type EditorProps = {
   onChange: (value: string) => void;
 };
 
-const Placeholder = () => {
+type PlaceholderProps = { onClick: () => void };
+
+const Placeholder = ({ onClick }: PlaceholderProps) => {
   return (
-    <div className="bg-slate-200 hover:bg-slate-300 transition rounded-sm py-2 px-3 cursor-pointer h-14">
+    <div
+      onClick={onClick}
+      className="bg-slate-200 hover:bg-slate-300 transition rounded-sm py-2 px-3 cursor-pointer h-14"
+    >
       <h3 className="text-sm font-semibold text-slate-700">
         Add a more detailed description...
       </h3>
@@ -45,7 +50,9 @@ const Editor = (props: EditorProps) => {
         className="w-full h-52 p-4 border border-slate-200 rounded-sm focus:outline-blue-600"
       />
       <div className="flex gap-2">
-        <Button onClick={props.onSave}>Save</Button>
+        <Button onClick={props.onSave} variant="solid">
+          Save
+        </Button>
         <Button variant="subtle" onClick={props.onCancel}>
           Cancel
         </Button>
@@ -81,7 +88,7 @@ export function DescriptionSection({
         action={text ? <Button onClick={toggleEdit}>Edit</Button> : undefined}
       />
       <ContentSection className="mt-3">
-        {text ? (
+        {isEdit || text ? (
           <Editor
             isEdit={isEdit}
             onChange={setText}
@@ -92,7 +99,7 @@ export function DescriptionSection({
             {text}
           </Editor>
         ) : (
-          <Placeholder />
+          <Placeholder onClick={toggleEdit} />
         )}
       </ContentSection>
     </Section>
