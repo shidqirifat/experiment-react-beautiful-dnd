@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
-import { Todo } from "./task";
+import { CheckItem, Todo } from "./task";
 import { OnDragEndResponder } from "react-beautiful-dnd";
 
 const todoSchema = z.object({
@@ -62,6 +62,23 @@ type ProgressProps = {
   hideDone: boolean;
 };
 
+type ListProps = {
+  id: string;
+  checklist: Array<CheckItem> | undefined;
+  hideDone: boolean;
+  onCheck: (todoId: string, checkId: string) => void;
+  onChange: (args: onChangeNameCheckItemArgs) => void;
+  onDelete: (todoId: string, checkId: string) => void;
+};
+
+type CheckItemSectionProps = {
+  item: CheckItem;
+  index: number;
+  onCheck: () => void;
+  onChange: (name: string) => void;
+  onDelete: () => void;
+};
+
 export { todoSchema };
 
 export type {
@@ -75,4 +92,6 @@ export type {
   TodoItemProps,
   ProgressProps,
   onChangeNameCheckItemArgs,
+  ListProps,
+  CheckItemSectionProps,
 };

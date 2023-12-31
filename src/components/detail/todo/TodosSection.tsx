@@ -5,7 +5,7 @@ import { TodoItemProps, TodosSectionProps } from "@/types/todo";
 
 function TodoItem({ todo, index, ...props }: TodoItemProps) {
   return (
-    <Draggable draggableId={todo.id} index={index}>
+    <Draggable key={todo.id} draggableId={todo.id} index={index}>
       {(provided) => (
         <div
           ref={provided.innerRef}
@@ -13,7 +13,7 @@ function TodoItem({ todo, index, ...props }: TodoItemProps) {
           {...provided.dragHandleProps}
           className="mb-4"
         >
-          <TodoSection key={todo.id} {...todo} {...props} />
+          <TodoSection {...todo} {...props} />
         </div>
       )}
     </Draggable>
@@ -32,7 +32,7 @@ const ListTodo = React.memo(function QuoteList({
 export function TodosSection(props: TodosSectionProps) {
   return (
     <DragDropContext onDragEnd={props.onReorder}>
-      <Droppable droppableId="list">
+      <Droppable droppableId="todos" type="todos">
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             <ListTodo {...props} />

@@ -7,7 +7,7 @@ const TASKS: Array<Task> = [
     title: "Task Pertama",
     todos: [
       {
-        id: "1",
+        id: "progress-1",
         title: "Progress 1",
         checklist: [
           {
@@ -33,7 +33,7 @@ const TASKS: Array<Task> = [
         ],
       },
       {
-        id: "2",
+        id: "progress-2",
         title: "Progress 2",
         checklist: [
           {

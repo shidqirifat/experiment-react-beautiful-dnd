@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/utils";
 import { useClickOutside } from "@mantine/hooks";
 import { KeyboardEvent, useState } from "react";
 
@@ -31,7 +32,13 @@ export function FormCheckItem({
   const ref = useClickOutside(() => onCancel());
 
   return (
-    <form onSubmit={handleAddCheckItem} className="mt-1 ml-7 space-y-2">
+    <form
+      onSubmit={handleAddCheckItem}
+      className={cn("mt-1 space-y-2 w-full", {
+        "ml-7": !initialName,
+        "ml-3": initialName,
+      })}
+    >
       <Textarea
         ref={ref}
         autoFocus

@@ -160,19 +160,47 @@ export default function useTask() {
   }, []);
 
   const handleReorderTodo = useCallback(
-    ({ source, destination }: DropResult) => {
+    ({ source, destination, type }: DropResult) => {
       if (!destination) return;
       if (destination.index === source.index) return;
 
-      const newTodos = reorder<Todo>(
-        task?.todos as Array<Todo>,
-        source.index,
-        destination.index
-      );
-      setTask((prev) => {
-        if (!prev) return null;
-        return { ...prev, todos: newTodos };
-      });
+      if (type === "todos") {
+        const newTodos = reorder<Todo>(
+          task?.todos as Array<Todo>,
+          source.index,
+          destination.index
+        );
+        setTask((prev) => {
+          if (!prev) return null;
+          return { ...prev, todos: newTodos };
+        });
+      } else {
+        const selectedTodo = task?.todos?.find(
+          (todo) => todo.id === source.droppableId
+        );
+        const newChecklist = reorder<CheckItem>(
+          selectedTodo?.checklist as Array<CheckItem>,
+          source.index,
+          destination.index
+        );
+
+        setTask((prev) => {
+          if (!prev) return null;
+
+          return {
+            ...prev,
+            todos: prev.todos?.map((todo) => {
+              if (todo.id === source.droppableId)
+                return {
+                  ...todo,
+                  checklist: newChecklist,
+                };
+
+              return todo;
+            }),
+          };
+        });
+      }
     },
     [task]
   );

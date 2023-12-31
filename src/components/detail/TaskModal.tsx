@@ -118,6 +118,7 @@ export function TaskModal() {
               onChangeCheckItem={onChangeCheckItem}
               onChangeNameCheckItem={onChangeNameCheckItem}
               onDeleteCheckItem={onDeleteCheckItem}
+              // onReorderCheckItem={onReorderCheckItem}
             />
           </div>
           <div>

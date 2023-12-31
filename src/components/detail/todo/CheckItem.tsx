@@ -32,9 +32,9 @@ export const CheckItem = ({
           onCancel={() => setEdit(false)}
         />
       ) : (
-        <button
+        <div
           onClick={() => setEdit(true)}
-          className="px-2 py-[6px] w-full rounded-md hover:bg-slate-200 transition flex items-center justify-between"
+          className="px-2 py-[6px] w-full rounded-md hover:bg-slate-200 transition flex items-center justify-between cursor-pointer"
         >
           <h3
             className={cn("font-normal text-sm text-left text-slate-800", {
@@ -51,7 +51,7 @@ export const CheckItem = ({
           >
             <FontAwesomeIcon icon={faMinus} />
           </Button>
-        </button>
+        </div>
       )}
     </div>
   );

@@ -1,7 +1,13 @@
 import { Section } from "..";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ActionDelete, CheckItem, FormCheckItem, Progress, TitleTodo } from ".";
+import {
+  ActionDelete,
+  FormCheckItem,
+  ListCheckItem,
+  Progress,
+  TitleTodo,
+} from ".";
 import { useMemo, useState } from "react";
 import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 import { cn } from "@/utils";
@@ -73,22 +79,14 @@ export function TodoSection({
       <Progress hideDone={hideDone} percentDone={percentDone} />
 
       <div className="mt-1">
-        {checklist.map((item) => {
-          if (hideDone && item.is_done) return null;
-
-          return (
-            <CheckItem
-              key={item.id}
-              name={item.name}
-              isDone={item.is_done}
-              onCheck={() => onChangeCheckItem(id, item.id)}
-              onChange={(name) =>
-                onChangeNameCheckItem({ todoId: id, checkId: item.id, name })
-              }
-              onDelete={() => onDeleteCheckItem(id, item.id)}
-            />
-          );
-        })}
+        <ListCheckItem
+          id={id}
+          checklist={checklist}
+          hideDone={hideDone}
+          onCheck={onChangeCheckItem}
+          onChange={onChangeNameCheckItem}
+          onDelete={onDeleteCheckItem}
+        />
 
         {isAdd ? (
           <FormCheckItem

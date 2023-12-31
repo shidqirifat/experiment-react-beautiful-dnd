@@ -7,3 +7,4 @@ export * from "./CheckItem";
 export * from "./TitleTodo";
 export * from "./Progress";
 export * from "./FormCheckItem";
+export * from "./ListCheckItem";
