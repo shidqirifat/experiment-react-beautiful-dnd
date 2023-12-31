@@ -1,6 +1,7 @@
 import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
 import { Todo } from "./task";
+import { OnDragEndResponder } from "react-beautiful-dnd";
 
 const todoSchema = z.object({
   title: z.string(),
@@ -35,13 +36,25 @@ type TitleTodoProps = {
 
 type onChangeNameCheckItemArgs = Record<"todoId" | "checkId" | "name", string>;
 
-interface TodosSectionProps extends Todo {
+type BaseTodosSectionProps = {
   onChangeTitle: (id: string, title: string) => void;
   onDeleteTodo: (id: string) => void;
   onAddCheckItem: (toodId: string, name: string) => void;
   onChangeCheckItem: (toodId: string, checkId: string) => void;
   onChangeNameCheckItem: (args: onChangeNameCheckItemArgs) => void;
   onDeleteCheckItem: (toodId: string, checkId: string) => void;
+};
+
+interface TodosSectionProps extends BaseTodosSectionProps {
+  todos: Array<Todo> | undefined;
+  onReorder: OnDragEndResponder;
+}
+
+type TodoSectionProps = BaseTodosSectionProps & Todo;
+
+interface TodoItemProps extends BaseTodosSectionProps {
+  todo: Todo;
+  index: number;
 }
 
 type ProgressProps = {
@@ -58,6 +71,8 @@ export type {
   CheckItemProps,
   TitleTodoProps,
   TodosSectionProps,
+  TodoSectionProps,
+  TodoItemProps,
   ProgressProps,
   onChangeNameCheckItemArgs,
 };

@@ -1,6 +1,7 @@
 export * from "./ActionTodo";
 export * from "./FormTodo";
 export * from "./TodosSection";
+export * from "./TodoSection";
 export * from "./ActionDelete";
 export * from "./CheckItem";
 export * from "./TitleTodo";

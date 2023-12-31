@@ -77,6 +77,7 @@ export function TaskModal() {
     onAddTodo,
     onChangeTitleTodo,
     onDeleteTodo,
+    onReorderTodo,
     onAddCheckItem,
     onChangeCheckItem,
     onChangeNameCheckItem,
@@ -108,20 +109,16 @@ export function TaskModal() {
               onEditLink={onEditLink}
               onRemoveLink={onRemoveLink}
             />
-            <div className="space-y-8">
-              {task.todos?.map((todo) => (
-                <TodosSection
-                  key={todo.id}
-                  {...todo}
-                  onChangeTitle={onChangeTitleTodo}
-                  onDeleteTodo={onDeleteTodo}
-                  onAddCheckItem={onAddCheckItem}
-                  onChangeCheckItem={onChangeCheckItem}
-                  onChangeNameCheckItem={onChangeNameCheckItem}
-                  onDeleteCheckItem={onDeleteCheckItem}
-                />
-              ))}
-            </div>
+            <TodosSection
+              todos={task.todos}
+              onReorder={onReorderTodo}
+              onChangeTitle={onChangeTitleTodo}
+              onDeleteTodo={onDeleteTodo}
+              onAddCheckItem={onAddCheckItem}
+              onChangeCheckItem={onChangeCheckItem}
+              onChangeNameCheckItem={onChangeNameCheckItem}
+              onDeleteCheckItem={onDeleteCheckItem}
+            />
           </div>
           <div>
             <div>

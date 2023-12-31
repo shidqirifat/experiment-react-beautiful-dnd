@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import { CheckItem, DueDate, Link, Task, Todo } from "@/types/task";
 import { LinkForm } from "@/types/link";
 import { TodoForm, onChangeNameCheckItemArgs } from "@/types/todo";
+import { DropResult } from "react-beautiful-dnd";
+import { reorder } from "@/utils/reorder";
 
 type TParams = { taskId?: string };
 
@@ -157,6 +159,24 @@ export default function useTask() {
     });
   }, []);
 
+  const handleReorderTodo = useCallback(
+    ({ source, destination }: DropResult) => {
+      if (!destination) return;
+      if (destination.index === source.index) return;
+
+      const newTodos = reorder<Todo>(
+        task?.todos as Array<Todo>,
+        source.index,
+        destination.index
+      );
+      setTask((prev) => {
+        if (!prev) return null;
+        return { ...prev, todos: newTodos };
+      });
+    },
+    [task]
+  );
+
   const handleChangeCheckItem = useCallback(
     (todoId: string, checkId: string) => {
       setTask((prev) => {
@@ -275,6 +295,7 @@ export default function useTask() {
     onAddTodo: handleAddTodo,
     onChangeTitleTodo: handleChangeTitleTodo,
     onDeleteTodo: handleDeleteTodo,
+    onReorderTodo: handleReorderTodo,
     onAddCheckItem: handleAddCheckItem,
     onChangeCheckItem: handleChangeCheckItem,
     onChangeNameCheckItem: handleChangeNameCheckItem,
