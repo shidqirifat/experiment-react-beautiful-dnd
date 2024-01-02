@@ -1,11 +1,8 @@
-import { ButtonAction } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { faTags } from "@fortawesome/free-solid-svg-icons";
-import cx from "clsx";
 import usePopover from "@/hooks/usePopover";
 import { LabelModalProps } from "@/types/label";
 import { ActionDelete, FormLabel, FormSelectLabel } from ".";
@@ -17,8 +14,9 @@ type Mode = "select" | "create" | "edit" | "delete";
 
 export function ActionLabel({
   labelsActive,
-  withIcon,
+  align = "end",
   onSelect,
+  children,
 }: LabelModalProps) {
   const [mode, setMode] = useState<Mode>("select");
   const [labelSelected, setLabelSelected] = useState<Label | null>(null);
@@ -55,22 +53,8 @@ export function ActionLabel({
 
   return (
     <Popover open={open} onOpenChange={toggleOpen}>
-      <PopoverTrigger className={cx({ "w-full": withIcon })}>
-        {withIcon ? (
-          <ButtonAction icon={faTags}>Labels</ButtonAction>
-        ) : (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              toggleOpen(true);
-            }}
-            className="relative z-50 underline underline-offset-1"
-          >
-            Edit
-          </button>
-        )}
-      </PopoverTrigger>
-      <PopoverContent align="end">
+      <PopoverTrigger className="w-full">{children}</PopoverTrigger>
+      <PopoverContent align={align}>
         {(mode === "edit" || mode === "create") && (
           <FormLabel
             initialForm={labelSelected}

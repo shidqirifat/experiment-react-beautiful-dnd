@@ -1,6 +1,7 @@
 import * as z from "zod";
 import { Label } from "./task";
 import { COLORS } from "@/datas/color";
+import { ReactNode } from "react";
 
 const labelSchema = z.object({
   name: z.string(),
@@ -15,10 +16,9 @@ type TypeForm = "create" | "edit";
 
 type LabelModalProps = {
   labelsActive: Array<Label> | undefined;
-  withIcon?: boolean;
-  onInsert?: (form: LabelForm) => void;
-  onUpdate?: (id: string, form: LabelForm) => void;
+  align?: "end" | "start";
   onSelect: (label: Label) => void;
+  children: ReactNode;
 };
 
 type FormLabelProps = {
@@ -52,6 +52,11 @@ type ActionDeleteProps = {
   onDelete: () => void;
 };
 
+type LabelsSectionProps = {
+  labels: Array<Label>;
+  onSelect: (label: Label) => void;
+};
+
 export { labelSchema };
 
 export type {
@@ -64,4 +69,5 @@ export type {
   handleCreateArgs,
   handleEditArgs,
   ActionDeleteProps,
+  LabelsSectionProps,
 };

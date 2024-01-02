@@ -6,35 +6,33 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
 import { ActionDate } from "./date";
+import { ActionLabel } from "./label";
+import { LabelsSectionProps } from "@/types/label";
+import { DateProps } from "@/types/date";
 
-type SubdetailSectionProps = {
+export type SubdetailSectionProps = {
   labels: Array<Label> | undefined;
   dueDate: DueDate | undefined;
   onToggleComplete: (value: boolean) => void;
   onSaveDueDate: (startDate: string, endDate: string) => void;
   onRemoveDueDate: () => void;
+  onSelectLabel: (label: Label) => void;
 };
-type LabelsSectionProps = { labels: Array<Label> };
-type DateProps = {
-  dueDate: DueDate;
-  completed: boolean;
-} & Pick<
-  SubdetailSectionProps,
-  "onRemoveDueDate" | "onSaveDueDate" | "onToggleComplete"
->;
 
-const LabelsSection = ({ labels }: LabelsSectionProps) => {
+const LabelsSection = ({ labels, onSelect }: LabelsSectionProps) => {
   return (
     <div>
       <Subtitle>Labels</Subtitle>
-      <div>
-        {labels.map((label) => (
-          <LabelItem key={label.id} label={label} />
-        ))}
-        <Button className="h-8 mt-1 py-[6px]">
-          <FontAwesomeIcon icon={faPlus} />
-        </Button>
-      </div>
+      <ActionLabel align="start" labelsActive={labels} onSelect={onSelect}>
+        <div>
+          {labels.map((label) => (
+            <LabelItem key={label.id} label={label} />
+          ))}
+          <Button className="h-8 mt-1 py-[6px]">
+            <FontAwesomeIcon icon={faPlus} />
+          </Button>
+        </div>
+      </ActionLabel>
     </div>
   );
 };
@@ -68,12 +66,15 @@ export function SubdetailSection({
   onToggleComplete,
   onSaveDueDate,
   onRemoveDueDate,
+  onSelectLabel,
 }: SubdetailSectionProps) {
   return (
     <Section>
       <ContentSection>
         <div className="flex gap-5 flex-wrap">
-          {labels && labels.length > 0 && <LabelsSection labels={labels} />}
+          {labels && labels.length > 0 && (
+            <LabelsSection labels={labels} onSelect={onSelectLabel} />
+          )}
           {dueDate && (
             <Date
               dueDate={dueDate}

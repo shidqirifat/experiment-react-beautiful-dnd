@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRotateRight,
   faBoxesPacking,
+  faTags,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -100,6 +101,7 @@ export function TaskModal() {
               onToggleComplete={onToggleComplete}
               onSaveDueDate={onSaveDueDate}
               onRemoveDueDate={onRemoveDueDate}
+              onSelectLabel={onSelectLabel}
             />
             <DescriptionSection onSave={onSaveDescription}>
               {task.description as string}
@@ -126,10 +128,11 @@ export function TaskModal() {
               <Subtitle>Add to card</Subtitle>
               <div className="space-y-2 mt-1">
                 <ActionLabel
-                  withIcon
                   labelsActive={task.labels}
                   onSelect={onSelectLabel}
-                />
+                >
+                  <ButtonAction icon={faTags}>Labels</ButtonAction>
+                </ActionLabel>
                 <ActionTodo onAdd={onAddTodo} />
                 <ActionDate
                   withIcon
