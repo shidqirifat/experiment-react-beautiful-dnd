@@ -35,6 +35,8 @@ export function useLabels() {
     const colorsExist = labels?.map((label) => label.color);
     const uniqColorsExist = [...new Set(colorsExist)];
 
+    if (uniqColorsExist.length === COLORS.length) return "green";
+
     for (const color of COLORS) {
       if (!uniqColorsExist.includes(color)) return color;
     }
