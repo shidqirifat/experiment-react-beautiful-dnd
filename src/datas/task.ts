@@ -1,4 +1,5 @@
 import { Task } from "@/types/task";
+import { INITIAL_LABELS } from "./label";
 
 const TASKS: Array<Task> = [
   {
@@ -68,23 +69,7 @@ const TASKS: Array<Task> = [
   {
     id: "1703070751237",
     title: "Task Kedua",
-    labels: [
-      {
-        id: "2",
-        name: "Label 2",
-        color: "pink",
-      },
-      {
-        id: "3",
-        name: "Label 3",
-        color: "yellow",
-      },
-      {
-        id: "4",
-        name: "Label 4",
-        color: "blue",
-      },
-    ],
+    labels: INITIAL_LABELS,
     todos: [
       {
         id: "3",
@@ -129,13 +114,7 @@ const TASKS: Array<Task> = [
   {
     id: "1703070766592",
     title: "Task Ketiga",
-    labels: [
-      {
-        id: "3",
-        name: "Label 3",
-        color: "green",
-      },
-    ],
+    labels: INITIAL_LABELS.slice(0, 1),
     description:
       "Since Tailwind is a PostCSS plugin, there’s nothing stopping you from using it with Sass, Less, Stylus, or other preprocessors, just like you can with other PostCSS plugins like Autoprefixer.",
     due_date: {
@@ -148,13 +127,7 @@ const TASKS: Array<Task> = [
   {
     id: "1703070767212",
     title: "Task Keempat",
-    labels: [
-      {
-        id: "4",
-        name: "Label 4",
-        color: "yellow",
-      },
-    ],
+    labels: INITIAL_LABELS.slice(1, 2),
     description:
       "Since Tailwind is a PostCSS plugin, there’s nothing stopping you from using it with Sass, Less, Stylus, or other preprocessors, just like you can with other PostCSS plugins like Autoprefixer.",
     links: [

@@ -15,7 +15,11 @@ import { useLabels } from "@/hooks/useLabels";
 
 type Mode = "select" | "create" | "edit" | "delete";
 
-export function ActionLabel({ labelsActive, withIcon }: LabelModalProps) {
+export function ActionLabel({
+  labelsActive,
+  withIcon,
+  onSelect,
+}: LabelModalProps) {
   const [mode, setMode] = useState<Mode>("select");
   const [labelSelected, setLabelSelected] = useState<Label | null>(null);
   const { onDelete } = useLabels();
@@ -81,6 +85,7 @@ export function ActionLabel({ labelsActive, withIcon }: LabelModalProps) {
             onClose={handleClose}
             onClickButtonCreate={handleClickButtonCreate}
             onClickButtonEdit={handleClickButtonEdit}
+            onSelectLabel={onSelect}
             labelsActive={labelsActive}
           />
         )}

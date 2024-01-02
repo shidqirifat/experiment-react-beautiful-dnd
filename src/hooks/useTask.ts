@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useTasks from "./useTasks";
 import { useCallback, useEffect, useState } from "react";
-import { CheckItem, Link, Task, Todo } from "@/types/task";
+import { CheckItem, Label, Link, Task, Todo } from "@/types/task";
 import { LinkForm } from "@/types/link";
 import { TodoForm, onChangeNameCheckItemArgs } from "@/types/todo";
 import { DropResult } from "react-beautiful-dnd";
@@ -306,6 +306,20 @@ export default function useTask() {
     []
   );
 
+  const handleSelectLabel = useCallback((label: Label) => {
+    setTask((prev) => {
+      if (!prev) return null;
+
+      const newLabels = prev.labels ? [...prev.labels] : [];
+      const index = newLabels.findIndex((item) => item.id === label.id);
+
+      if (index < 0) newLabels.push(label);
+      else newLabels.splice(index, 1);
+
+      return { ...prev, labels: newLabels };
+    });
+  }, []);
+
   useEffect(() => {
     const currentTask = tasks.find((task) => task.id === taskId);
     if (currentTask) setTask(currentTask);
@@ -333,5 +347,6 @@ export default function useTask() {
     onChangeCheckItem: handleChangeCheckItem,
     onChangeNameCheckItem: handleChangeNameCheckItem,
     onDeleteCheckItem: handleDeleteCheckItem,
+    onSelectLabel: handleSelectLabel,
   };
 }

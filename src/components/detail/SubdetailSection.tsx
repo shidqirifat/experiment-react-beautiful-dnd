@@ -31,7 +31,7 @@ const LabelsSection = ({ labels }: LabelsSectionProps) => {
         {labels.map((label) => (
           <LabelItem key={label.id} label={label} />
         ))}
-        <Button className="h-9 mt-1">
+        <Button className="h-8 mt-1 py-[6px]">
           <FontAwesomeIcon icon={faPlus} />
         </Button>
       </div>
@@ -72,8 +72,8 @@ export function SubdetailSection({
   return (
     <Section>
       <ContentSection>
-        <div className="flex gap-5">
-          {labels && <LabelsSection labels={labels} />}
+        <div className="flex gap-5 flex-wrap">
+          {labels && labels.length > 0 && <LabelsSection labels={labels} />}
           {dueDate && (
             <Date
               dueDate={dueDate}

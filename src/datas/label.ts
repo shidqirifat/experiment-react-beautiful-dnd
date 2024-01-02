@@ -3,7 +3,7 @@ import { Label } from "@/types/task";
 const INITIAL_LABELS: Array<Label> = [
   {
     id: "label-1",
-    name: "",
+    name: "label 1",
     color: "green",
   },
   {

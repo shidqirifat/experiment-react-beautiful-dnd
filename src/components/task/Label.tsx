@@ -1,4 +1,5 @@
 import { Label } from "@/types/task";
+import { colorVariants } from "@/utils/label";
 import cx from "clsx";
 
 type LabelsProps = { labels: Array<Label> | undefined };
@@ -9,15 +10,17 @@ export const LabelItem = ({ label, cardLabel }: LabelProps) => {
     <button
       key={label.id}
       className={cx(
-        "px-3 inline-flex w-max mr-1 hover:brightness-110 transition",
+        "px-3 inline-flex w-max mr-1 text-sm hover:brightness-110 transition",
         {
-          "mt-2 rounded-md py-1 text-xs": cardLabel,
-          "mt-1 rounded py-2 text-sm": !cardLabel,
-        }
+          "mt-2 rounded-md py-[1px]": cardLabel,
+          "mt-1 rounded py-[6px] h-8": !cardLabel,
+        },
+        colorVariants({ color: label.color })
       )}
-      style={{ backgroundColor: label.color }}
     >
-      <h3 className="font-medium">{label.name}</h3>
+      <h3 className={cx("font-bold", { "opacity-0": !label.name })}>
+        {label.name || "Empty"}
+      </h3>
     </button>
   );
 };

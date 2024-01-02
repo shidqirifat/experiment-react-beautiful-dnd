@@ -18,6 +18,7 @@ type LabelModalProps = {
   withIcon?: boolean;
   onInsert?: (form: LabelForm) => void;
   onUpdate?: (id: string, form: LabelForm) => void;
+  onSelect: (label: Label) => void;
 };
 
 type FormLabelProps = {
@@ -32,6 +33,7 @@ type FormSelectLabelProps = {
   onClose: () => void;
   onClickButtonEdit: (label: Label) => void;
   onClickButtonCreate: () => void;
+  onSelectLabel: (label: Label) => void;
   labelsActive: Array<Label> | undefined;
 };
 

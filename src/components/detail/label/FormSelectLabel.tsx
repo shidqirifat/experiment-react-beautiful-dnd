@@ -13,6 +13,7 @@ export function FormSelectLabel({
   onClose,
   onClickButtonEdit,
   onClickButtonCreate,
+  onSelectLabel,
   labelsActive,
 }: FormSelectLabelProps) {
   const [keyword, setKeyword] = useState("");
@@ -44,12 +45,15 @@ export function FormSelectLabel({
         <div className="space-y-1">
           {labelsFiltered.map((label) => (
             <div key={label.id} className="flex items-center gap-1">
-              <div className="flex items-center w-full gap-3">
+              <button
+                onClick={() => onSelectLabel(label)}
+                className="flex items-center w-full gap-3"
+              >
                 <Checkbox checked={labelsActiveIds?.includes(label.id)} />
                 <ColorSelect color={label.color}>
                   {label.name || ""}
                 </ColorSelect>
-              </div>
+              </button>
               <Button
                 onClick={() => onClickButtonEdit(label)}
                 variant="subtle"

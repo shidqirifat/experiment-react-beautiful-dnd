@@ -82,6 +82,7 @@ export function TaskModal() {
     onChangeCheckItem,
     onChangeNameCheckItem,
     onDeleteCheckItem,
+    onSelectLabel,
   } = useTask();
   const { toggleArchive } = useArchiveTasks();
 
@@ -124,7 +125,11 @@ export function TaskModal() {
             <div>
               <Subtitle>Add to card</Subtitle>
               <div className="space-y-2 mt-1">
-                <ActionLabel withIcon labelsActive={task.labels} />
+                <ActionLabel
+                  withIcon
+                  labelsActive={task.labels}
+                  onSelect={onSelectLabel}
+                />
                 <ActionTodo onAdd={onAddTodo} />
                 <ActionDate
                   withIcon
