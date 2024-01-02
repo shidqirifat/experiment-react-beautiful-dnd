@@ -1,5 +1,4 @@
 import { Task } from "@/types/task";
-import { COLORS } from "./color";
 
 const TASKS: Array<Task> = [
   {
@@ -73,17 +72,17 @@ const TASKS: Array<Task> = [
       {
         id: "2",
         name: "Label 2",
-        color: COLORS.pink,
+        color: "pink",
       },
       {
         id: "3",
         name: "Label 3",
-        color: COLORS.yellow,
+        color: "yellow",
       },
       {
         id: "4",
         name: "Label 4",
-        color: COLORS.blue,
+        color: "blue",
       },
     ],
     todos: [
@@ -134,7 +133,7 @@ const TASKS: Array<Task> = [
       {
         id: "3",
         name: "Label 3",
-        color: COLORS.green,
+        color: "green",
       },
     ],
     description:
@@ -153,7 +152,7 @@ const TASKS: Array<Task> = [
       {
         id: "4",
         name: "Label 4",
-        color: COLORS.yellow,
+        color: "yellow",
       },
     ],
     description:

@@ -1,7 +1,9 @@
+import { Color } from "./label";
+
 type Label = {
   id: string;
   name: string;
-  color: string;
+  color: Color;
 };
 
 type Link = {

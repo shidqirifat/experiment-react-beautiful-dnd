@@ -1,8 +1,14 @@
-const COLORS = {
-  blue: "#579DFF",
-  pink: "#F797D2",
-  yellow: "#E2B203",
-  green: "#7EE2B8",
-};
+const COLORS = [
+  "green",
+  "yellow",
+  "orange",
+  "red",
+  "purple",
+  "blue",
+  "sky",
+  "lime",
+  "pink",
+  "gray",
+] as const;
 
 export { COLORS };

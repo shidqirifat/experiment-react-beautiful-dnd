@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRotateRight,
   faBoxesPacking,
-  faTags,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -22,6 +21,7 @@ import useArchiveTasks from "@/hooks/useArchiveTasks";
 import cx from "clsx";
 import { ActionDate } from "./date";
 import { ActionTodo, TodosSection } from "./todo";
+import { ActionLabel } from "./label";
 
 type LayoutProps = { children: ReactNode };
 type ModalProps = {
@@ -118,14 +118,13 @@ export function TaskModal() {
               onChangeCheckItem={onChangeCheckItem}
               onChangeNameCheckItem={onChangeNameCheckItem}
               onDeleteCheckItem={onDeleteCheckItem}
-              // onReorderCheckItem={onReorderCheckItem}
             />
           </div>
           <div>
             <div>
               <Subtitle>Add to card</Subtitle>
               <div className="space-y-2 mt-1">
-                <ButtonAction icon={faTags}>Labels</ButtonAction>
+                <ActionLabel withIcon labelsActive={task.labels} />
                 <ActionTodo onAdd={onAddTodo} />
                 <ActionDate
                   withIcon

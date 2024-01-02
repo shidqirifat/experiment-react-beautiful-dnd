@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useTasks from "./useTasks";
 import { useCallback, useEffect, useState } from "react";
-import { CheckItem, DueDate, Link, Task, Todo } from "@/types/task";
+import { CheckItem, Link, Task, Todo } from "@/types/task";
 import { LinkForm } from "@/types/link";
 import { TodoForm, onChangeNameCheckItemArgs } from "@/types/todo";
 import { DropResult } from "react-beautiful-dnd";
@@ -40,7 +40,9 @@ export default function useTask() {
 
       return {
         ...prev,
-        due_date: { ...(prev?.due_date as DueDate), is_done: value },
+        due_date: prev.due_date
+          ? { ...prev?.due_date, is_done: value }
+          : undefined,
       };
     });
   }, []);
@@ -54,7 +56,10 @@ export default function useTask() {
 
     setTask((prev) => {
       if (!prev) return null;
-      return { ...prev, links: [...(prev.links as Array<Link>), link] };
+      return {
+        ...prev,
+        links: prev.links ? [...prev.links, link] : [link],
+      };
     });
   }, []);
 
@@ -103,9 +108,9 @@ export default function useTask() {
         return {
           ...prev,
           due_date: {
-            ...(prev.due_date as DueDate),
             start_date: startDate,
             end_date: endDate,
+            is_done: prev.due_date?.is_done || false,
           },
         };
       });
@@ -147,7 +152,7 @@ export default function useTask() {
       if (!prev) return null;
       return {
         ...prev,
-        todos: [...(prev.todos as Array<Todo>), newTodo],
+        todos: prev.todos ? [...prev.todos, newTodo] : [newTodo],
       };
     });
   }, []);
