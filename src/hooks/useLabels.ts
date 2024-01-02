@@ -31,6 +31,16 @@ export function useLabels() {
     );
   }, []);
 
+  const handleDelete = useCallback((id: string) => {
+    setLabels((prev) => {
+      const index = prev.findIndex((label) => label.id === id);
+      const cloneLabels = [...prev];
+      cloneLabels.splice(index, 1);
+
+      return cloneLabels;
+    });
+  }, []);
+
   const colorNewLabel = useMemo<Color>(() => {
     const colorsExist = labels?.map((label) => label.color);
     const uniqColorsExist = [...new Set(colorsExist)];
@@ -49,5 +59,6 @@ export function useLabels() {
     colorNewLabel,
     onCreate: handleCreate,
     onEdit: handleEdit,
+    onDelete: handleDelete,
   };
 }

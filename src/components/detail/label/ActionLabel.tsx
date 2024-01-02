@@ -8,16 +8,17 @@ import { faTags } from "@fortawesome/free-solid-svg-icons";
 import cx from "clsx";
 import usePopover from "@/hooks/usePopover";
 import { LabelModalProps } from "@/types/label";
-import { FormLabel, FormSelectLabel } from ".";
+import { ActionDelete, FormLabel, FormSelectLabel } from ".";
 import { useState } from "react";
 import { Label } from "@/types/task";
+import { useLabels } from "@/hooks/useLabels";
 
-type Mode = "select" | "create" | "edit";
+type Mode = "select" | "create" | "edit" | "delete";
 
 export function ActionLabel({ labelsActive, withIcon }: LabelModalProps) {
   const [mode, setMode] = useState<Mode>("select");
   const [labelSelected, setLabelSelected] = useState<Label | null>(null);
-
+  const { onDelete } = useLabels();
   const { open, toggleOpen, onClose } = usePopover();
 
   const handleClickButtonCreate = () => {
@@ -36,7 +37,16 @@ export function ActionLabel({ labelsActive, withIcon }: LabelModalProps) {
 
   const handleClose = () => {
     onClose();
-    setMode("select");
+    setTimeout(() => {
+      setMode("select");
+    }, 200);
+  };
+
+  const handleDelete = (id: string) => {
+    onDelete(id);
+    setTimeout(() => {
+      handleBack();
+    }, 100);
   };
 
   return (
@@ -57,19 +67,28 @@ export function ActionLabel({ labelsActive, withIcon }: LabelModalProps) {
         )}
       </PopoverTrigger>
       <PopoverContent align="end">
-        {mode === "edit" || mode === "create" ? (
+        {(mode === "edit" || mode === "create") && (
           <FormLabel
             initialForm={labelSelected}
             type={mode}
             onBack={handleBack}
             onClose={handleClose}
+            onDelete={() => setMode("delete")}
           />
-        ) : (
+        )}
+        {mode === "select" && (
           <FormSelectLabel
             onClose={handleClose}
             onClickButtonCreate={handleClickButtonCreate}
             onClickButtonEdit={handleClickButtonEdit}
             labelsActive={labelsActive}
+          />
+        )}
+        {mode === "delete" && labelSelected && (
+          <ActionDelete
+            onBack={() => setMode("edit")}
+            onClose={handleClose}
+            onDelete={() => handleDelete(labelSelected.id)}
           />
         )}
       </PopoverContent>

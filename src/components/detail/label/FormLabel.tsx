@@ -36,6 +36,7 @@ export const FormLabel = ({
   type,
   onBack,
   onClose,
+  onDelete,
 }: FormLabelProps) => {
   const { colorNewLabel, onCreate, onEdit } = useLabels();
 
@@ -102,7 +103,12 @@ export const FormLabel = ({
               {type === "create" ? "Create" : "Save"}
             </Button>
             {type === "edit" && (
-              <Button onClick={onClose} variant="solid" color="danger">
+              <Button
+                type="button"
+                onClick={onDelete}
+                variant="solid"
+                color="danger"
+              >
                 Delete
               </Button>
             )}

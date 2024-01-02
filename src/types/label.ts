@@ -25,6 +25,7 @@ type FormLabelProps = {
   type: TypeForm;
   onBack: () => void;
   onClose: () => void;
+  onDelete: () => void;
 };
 
 type FormSelectLabelProps = {
@@ -43,6 +44,12 @@ interface handleEditArgs extends handleCreateArgs {
   id: string;
 }
 
+type ActionDeleteProps = {
+  onBack: () => void;
+  onClose: () => void;
+  onDelete: () => void;
+};
+
 export { labelSchema };
 
 export type {
@@ -54,4 +61,5 @@ export type {
   FormSelectLabelProps,
   handleCreateArgs,
   handleEditArgs,
+  ActionDeleteProps,
 };
