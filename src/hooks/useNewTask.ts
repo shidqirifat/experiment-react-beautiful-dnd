@@ -1,3 +1,5 @@
+"use client";
+
 import { useClickOutside } from "@mantine/hooks";
 import { useCallback, useState } from "react";
 import useTasks from "./useTasks";

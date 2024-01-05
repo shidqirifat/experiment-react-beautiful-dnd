@@ -1,3 +1,5 @@
+"use client";
+
 import { TASKS } from "@/datas/task";
 import { useDebouncedValue, useLocalStorage } from "@mantine/hooks";
 import { useCallback, useMemo, useState } from "react";

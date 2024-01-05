@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -18,7 +20,7 @@ import { styleDefault } from "..";
 import { useState } from "react";
 import { ArchivedItems, MenuItem } from ".";
 import usePopover from "@/hooks/usePopover";
-import { useParams } from "react-router-dom";
+import { useParams } from "next/navigation";
 
 type Menus = "archive-list" | "archive-items" | "labels";
 type ContentMenuProps = { menu: Menus };
@@ -52,10 +54,10 @@ const generateTitleMenu = (menu: Menus | null) => {
 export function ActionMore() {
   const [menuActive, setMenuActive] = useState<Menus | null>(null);
   const { open, toggleOpen } = usePopover();
-  const params = useParams();
+  const params = useParams<{ id: string }>();
 
   return (
-    <Sheet open={open && !params.taskId} onOpenChange={toggleOpen}>
+    <Sheet open={open && !params.id} onOpenChange={toggleOpen}>
       <SheetTrigger>
         <Button variant="subtle" className="h-9 hover:!bg-slate-100/30">
           <FontAwesomeIcon icon={faEllipsis} {...styleDefault} />

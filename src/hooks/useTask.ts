@@ -1,23 +1,25 @@
-import { useNavigate, useParams } from "react-router-dom";
+"use-client";
+
 import useTasks from "./useTasks";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CheckItem, Label, Link, Task, Todo } from "@/types/task";
 import { LinkForm } from "@/types/link";
 import { TodoForm, onChangeNameCheckItemArgs } from "@/types/todo";
 import { DropResult } from "react-beautiful-dnd";
 import { reorder } from "@/utils/reorder";
-
-type TParams = { taskId?: string };
+import { useRouter, useParams } from "next/navigation";
 
 export default function useTask() {
   const [task, setTask] = useState<Task | null>(null);
   const { tasks, updateTask } = useTasks();
-  const { taskId } = useParams<TParams>();
-  const navigate = useNavigate();
+  const router = useRouter();
+  const params = useParams<{ id: string }>();
+
+  const taskId = useMemo<string>(() => params.id || "", [params]);
 
   const handleClose = useCallback(() => {
     updateTask(taskId as string, task as Task);
-    navigate("/");
+    router.push("/");
   }, [taskId, task]);
 
   const handleSaveTitle = useCallback((value: string) => {
