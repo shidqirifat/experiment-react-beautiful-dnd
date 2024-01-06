@@ -61,7 +61,7 @@ export function ActionMore() {
           <FontAwesomeIcon icon={faEllipsis} {...styleDefault} />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-80">
+      <SheetContent className="w-full md:w-80">
         <SheetHeader>
           {menuActive && (
             <Button

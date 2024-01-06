@@ -45,7 +45,7 @@ const ArchiveBackground = () => {
 const Modal = ({ children, archived, onClose }: ModalProps) => {
   return (
     <Shadow onClick={onClose}>
-      <div className="relative z-10 w-[90vw] bg-slate-50 rounded-lg">
+      <div className="relative z-10 bg-slate-50 md:rounded-lg">
         {archived && <ArchiveBackground />}
         <button
           onClick={onClose}
@@ -60,7 +60,11 @@ const Modal = ({ children, archived, onClose }: ModalProps) => {
 };
 
 const Layout = ({ children }: LayoutProps) => {
-  return <div className="grid grid-cols-[1fr_170px] gap-4">{children}</div>;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-[1fr_170px] gap-4">
+      {children}
+    </div>
+  );
 };
 
 export function TaskModal() {
@@ -126,7 +130,7 @@ export function TaskModal() {
           <div>
             <div>
               <Subtitle>Add to card</Subtitle>
-              <div className="space-y-2 mt-1">
+              <div className="space-y-2 sm:space-y-0 md:space-y-2 mt-1 sm:grid sm:grid-cols-2 sm:gap-2 md:block">
                 <ActionLabel
                   labelsActive={task.labels}
                   onSelect={onSelectLabel}

@@ -11,10 +11,12 @@ export const TitleTodo = ({
 }: TitleTodoProps) => {
   const [title, setTitle] = useState(children);
 
-  const ref = useClickOutside(() => {
+  const handleSave = () => {
     onSave(title);
     toggleEdit();
-  });
+  };
+
+  const ref = useClickOutside(handleSave);
 
   if (!isEdit) {
     return (
@@ -28,12 +30,14 @@ export const TitleTodo = ({
   }
 
   return (
-    <Input
-      ref={ref}
-      autoFocus
-      className="relative -left-2 text-base font-semibold pl-2 w-full"
-      value={title}
-      onChange={(e) => setTitle(e.target.value)}
-    />
+    <form onSubmit={handleSave}>
+      <Input
+        ref={ref}
+        autoFocus
+        className="relative -left-2 text-base font-semibold pl-2 w-full"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+    </form>
   );
 };

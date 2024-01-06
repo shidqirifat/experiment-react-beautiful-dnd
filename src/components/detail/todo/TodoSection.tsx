@@ -46,7 +46,7 @@ export function TodoSection({
 
   return (
     <Section className="!pb-4">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-wrap gap-2">
         <div
           className={cn("flex gap-3 items-center", {
             "w-full": isEdit,

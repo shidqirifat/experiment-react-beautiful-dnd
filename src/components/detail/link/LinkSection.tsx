@@ -26,15 +26,17 @@ const LinkItem = ({ link, onEditLink, onRemoveLink }: LinkItemProps) => {
           <h3 className="text-base font-semibold">{link.name}</h3>
           <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="2xs" />
         </div>
-        <div className="text-sm text-slate-600 flex gap-1 items-center">
+        <div className="text-sm text-slate-600 flex flex-wrap gap-1 items-center">
           <h4>
             Updated {formatDate(link.updated_at, "MMM D")} at{" "}
             {formatDate(link.updated_at, "h:mm A")}
           </h4>
           <Dot />
-          <RemoveLink onRemove={() => onRemoveLink(link.id)} />
-          <Dot />
-          <ActionLink type="edit" initialForm={link} onUpdate={onEditLink} />
+          <div className="flex gap-1 items-center">
+            <RemoveLink onRemove={() => onRemoveLink(link.id)} />
+            <Dot />
+            <ActionLink type="edit" initialForm={link} onUpdate={onEditLink} />
+          </div>
         </div>
       </div>
     </a>

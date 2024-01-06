@@ -99,6 +99,7 @@ export function ActionDate({
             allowSingleDateInRange
             value={dates}
             onChange={setDates}
+            defaultDate={dates[1] || undefined}
           />
           <TimeInput
             value={time}

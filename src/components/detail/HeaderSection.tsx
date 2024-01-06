@@ -1,7 +1,7 @@
 import { faHeading } from "@fortawesome/free-solid-svg-icons";
 import { ContentSection, Section, Subtitle } from ".";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Input } from "../ui/input";
 import { useClickOutside } from "@mantine/hooks";
 
@@ -21,16 +21,19 @@ const Title = ({ children, onSave }: TitleProps) => {
   const [title, setTitle] = useState(children);
   const [isEdit, setEdit] = useState(false);
 
-  const toggleEdit = () => setEdit(!isEdit);
-  const ref = useClickOutside(() => {
+  const handleSave = (e?: FormEvent<HTMLFormElement>) => {
+    if (e) e.preventDefault();
     onSave(title);
     toggleEdit();
-  });
+  };
+
+  const toggleEdit = () => setEdit(!isEdit);
+  const ref = useClickOutside(handleSave);
 
   return (
     <div className="flex gap-3 items-center">
       <FontAwesomeIcon icon={faHeading} />
-      <div className="h-10 w-full mr-8">
+      <form className="h-10 w-full mr-8" onSubmit={handleSave}>
         {isEdit ? (
           <Input
             ref={ref}
@@ -47,7 +50,7 @@ const Title = ({ children, onSave }: TitleProps) => {
             {title}
           </h1>
         )}
-      </div>
+      </form>
     </div>
   );
 };

@@ -13,6 +13,7 @@ import cx from "clsx";
 import { getTitleByType } from "@/utils/link";
 import { FormLink } from ".";
 import usePopover from "@/hooks/usePopover";
+import { useEffect } from "react";
 
 const generateInitialForm = (form: Link | undefined): LinkForm => {
   return {
@@ -30,7 +31,6 @@ export function ActionLink({
 }: LinkModalProps) {
   const form = useForm<LinkForm>({
     resolver: zodResolver(linkSchema),
-    defaultValues: generateInitialForm(initialForm),
   });
   const { open, toggleOpen, onClose } = usePopover();
 
@@ -47,6 +47,10 @@ export function ActionLink({
     onClose();
     form.reset();
   };
+
+  useEffect(() => {
+    form.reset(generateInitialForm(initialForm));
+  }, [initialForm]);
 
   return (
     <Popover open={open} onOpenChange={toggleOpen}>
