@@ -19,6 +19,7 @@ import { useState } from "react";
 import { ArchivedItems, MenuItem } from ".";
 import usePopover from "@/hooks/usePopover";
 import { useParams } from "react-router-dom";
+import { LabelsWrapper } from "@/components/detail/label/LabelsWrapper";
 
 type Menus = "archive-list" | "archive-items" | "labels";
 type ContentMenuProps = { menu: Menus };
@@ -30,7 +31,7 @@ const ContentMenu = ({ menu }: ContentMenuProps) => {
     case "archive-list":
       return <h1>Arsip list</h1>;
     case "labels":
-      return <h1>Labels</h1>;
+      return <LabelsWrapper />;
     default:
       return null;
   }
@@ -72,19 +73,25 @@ export function ActionMore() {
               <FontAwesomeIcon icon={faChevronLeft} />
             </Button>
           )}
-          <SheetTitle>{generateTitleMenu(menuActive)}</SheetTitle>
+          <SheetTitle className="border-b border-b-gray-300">
+            {generateTitleMenu(menuActive)}
+          </SheetTitle>
         </SheetHeader>
         {menuActive ? (
           <ContentMenu menu={menuActive} />
         ) : (
-          <div className="py-4 border-t border-slate-300 space-y-1">
+          <div className="py-4 space-y-1">
             <MenuItem
               onClick={() => setMenuActive("archive-items")}
               icon={faBoxesPacking}
               label="Archived Items"
             />
             <MenuItem icon={faBoxArchive} label="Archived List" />
-            <MenuItem icon={faTags} label="Labels" />
+            <MenuItem
+              icon={faTags}
+              label="Labels"
+              onClick={() => setMenuActive("labels")}
+            />
           </div>
         )}
       </SheetContent>

@@ -10,6 +10,7 @@ import { useMemo, useState } from "react";
 import { FormSelectLabelProps } from "@/types/label";
 
 export function FormSelectLabel({
+  withHeader,
   onClose,
   onClickButtonEdit,
   onClickButtonCreate,
@@ -32,7 +33,7 @@ export function FormSelectLabel({
 
   return (
     <div>
-      <PopoverHeader onClose={onClose}>Labels</PopoverHeader>
+      {withHeader && <PopoverHeader onClose={onClose}>Labels</PopoverHeader>}
       <div className="space-y-3 mt-3">
         <Input
           value={keyword}
@@ -46,10 +47,16 @@ export function FormSelectLabel({
           {labelsFiltered.map((label) => (
             <div key={label.id} className="flex items-center gap-1">
               <button
-                onClick={() => onSelectLabel(label)}
+                onClick={() =>
+                  onSelectLabel
+                    ? onSelectLabel(label)
+                    : onClickButtonEdit(label)
+                }
                 className="flex items-center w-full gap-3"
               >
-                <Checkbox checked={labelsActiveIds?.includes(label.id)} />
+                {labelsActive && (
+                  <Checkbox checked={labelsActiveIds?.includes(label.id)} />
+                )}
                 <ColorSelect color={label.color}>
                   {label.name || ""}
                 </ColorSelect>

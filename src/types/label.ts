@@ -15,13 +15,18 @@ type Color = (typeof COLORS)[number];
 type TypeForm = "create" | "edit";
 
 type LabelModalProps = {
-  labelsActive: Array<Label> | undefined;
+  labelsActive?: Array<Label>;
   align?: "end" | "start";
-  onSelect: (label: Label) => void;
+  onSelect?: (label: Label) => void;
   children: ReactNode;
 };
 
+type LabelsWrapperProps = Pick<LabelModalProps, "labelsActive" | "onSelect"> & {
+  onClose?: (fn?: (() => void) | undefined) => void;
+};
+
 type FormLabelProps = {
+  withHeader?: boolean;
   initialForm: Label | null;
   type: TypeForm;
   onBack: () => void;
@@ -30,10 +35,11 @@ type FormLabelProps = {
 };
 
 type FormSelectLabelProps = {
+  withHeader?: boolean;
   onClose: () => void;
   onClickButtonEdit: (label: Label) => void;
   onClickButtonCreate: () => void;
-  onSelectLabel: (label: Label) => void;
+  onSelectLabel?: (label: Label) => void;
   labelsActive: Array<Label> | undefined;
 };
 
@@ -70,4 +76,5 @@ export type {
   handleEditArgs,
   ActionDeleteProps,
   LabelsSectionProps,
+  LabelsWrapperProps,
 };

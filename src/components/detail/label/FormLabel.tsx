@@ -16,9 +16,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useLabels } from "@/hooks/useLabels";
 import { useEffect } from "react";
 
-const Preview = ({ name, color }: LabelForm) => {
+type PreviewProps = LabelForm;
+
+const Preview = ({ name, color }: PreviewProps) => {
   return (
-    <div className="p-8 bg-slate-100 my-4">
+    <div className="p-8 bg-slate-100 mt-4">
       <div
         className={cn(
           "h-8 flex items-center px-3 rounded-sm",
@@ -32,6 +34,7 @@ const Preview = ({ name, color }: LabelForm) => {
 };
 
 export const FormLabel = ({
+  withHeader,
   initialForm,
   type,
   onBack,
@@ -67,9 +70,11 @@ export const FormLabel = ({
 
   return (
     <div>
-      <PopoverHeader onBack={onBack} onClose={onClose}>
-        {getTitleByType(type)}
-      </PopoverHeader>
+      {withHeader && (
+        <PopoverHeader onBack={onBack} onClose={onClose}>
+          {getTitleByType(type)}
+        </PopoverHeader>
+      )}
       <Preview name={name} color={color} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">

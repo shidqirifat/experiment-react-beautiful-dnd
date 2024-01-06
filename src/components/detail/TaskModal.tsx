@@ -45,7 +45,7 @@ const ArchiveBackground = () => {
 const Modal = ({ children, archived, onClose }: ModalProps) => {
   return (
     <Shadow onClick={onClose}>
-      <div className="relative z-10 bg-slate-50 md:rounded-lg">
+      <div className="relative z-10 bg-slate-50 md:rounded-lg min-h-screen md:min-h-max">
         {archived && <ArchiveBackground />}
         <button
           onClick={onClose}
